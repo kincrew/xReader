@@ -44,7 +44,8 @@
 					if (timeout) request.timeout(timeout);
 					if (param) {
 						if (!JSON) y.include('http://www.datatables.org/javascript/json2.js');
-						request.query(JSON.parse(param));
+						var param = JSON.parse(param);
+						for (var key in param) request.query(key, param[key]);
 					}
 					if (headers) {
 						if (!JSON) y.include('http://www.datatables.org/javascript/json2.js');

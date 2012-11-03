@@ -84,7 +84,7 @@ var query = function(option, encode) {
 	if (option.referer) statement += " AND referer='" + option.referer + "'";
 	if (option.headers) statement += " AND headers='" + oJSON(option.headers) + "'";
 	if (option.cookie)  statement += " AND cookie='" + oJSON(option.cookie) + "'";
-	if (option.params)  statement += " AND params='" + oJSON(option.params) + "'";
+	if (option.param)   statement += " AND param='" + oJSON(option.param) + "'";
 	if (option.timeout) statement += ' AND timeout="' + option.timeout + '"';
 	if (option.content) statement += ' AND content="' + encodeURIComponent(content) + '"';
 	option.query = statement;
@@ -103,7 +103,6 @@ var oJSON = function(target) {
 		}
 		return '{ ' + result + ' }';
 	} else {
-		console.log(typeof target);
 		return (oJSON.ecma5) ? JSON.parse(target) : eval('('+target+')');
 	}
 };
