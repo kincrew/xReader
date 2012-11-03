@@ -110,7 +110,7 @@
 							content = '';
 						}
 					} else content = '';
-					if (content && type == "jsonp") {
+					if (content && (type == "jsonp")) {
 						content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
 					}
 					if (xpath || css) {
