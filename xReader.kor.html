@@ -1,38 +1,34 @@
 <!DOCTYPE html>
 <html>
-
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="xReader KOREAN : Javscript Fucntion for accessing other resource wth YQL" />
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.ko.xreader.css">
+<head>
+	<meta charset='utf-8' />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta name="description" content="xReader KOREAN : Javscript Fucntion for accessing other resource wth YQL" />
+	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.ko.xreader.css">
 	<script src="javascripts/jquery.min.js" type="text/javascript"></script>
 	<script src="xReader.full.js" type="text/javascript"></script>
 	<script src="javascripts/xReader.demo.js" type="text/javascript"></script>
-    <title>xReader [한국어 데모]</title>
-  </head>
+	<title>xReader [한국어 데모]</title>
+</head>
+<body>
+	<!-- HEADER -->
+	<div id="header_wrap" class="outer">
+		<div class="inner">
+		  <a id="forkme_banner" href="https://github.com/kincrew/xReader">View on GitHub</a>
 
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <div class="inner">
-          <a id="forkme_banner" href="https://github.com/kincrew/xReader">View on GitHub</a>
-
-          <h1 id="project_title">xReader v0.0.72a [DEMO]</h1>
-          <h2 id="project_tagline">자유로운 리소스 접근의 최후 해결책</h2>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <div id="main_content" class="inner">
+		  <h1 id="project_title">xReader v0.0.75a [DEMO]</h1>
+		  <h2 id="project_tagline">자유로운 리소스 접근의 최후 해결책</h2>
+		</div>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="main_content_wrap" class="outer">
+	  <div id="main_content" class="inner">
 		<h3>xReader 소개</h3>
 		<p>xReader는 외부 다른 텍스트 형식의 컨텐츠를 자유롭게 불러오게 만들어진 간결한 함수입니다. </p>
 		<ul>
-			<li>버전 : v0.0.72a - 2012-11-03</li>
+			<li>버전 : v0.0.76a - 2012-11-04</li>
 			<li>라이선스 : MIT License</li>
-			<li>소스 : <a href="xReader.js" target="_blank">xReader.js</a>, <a href="xReader.full.js" target="_blank">xReader.full.js</a>, <a href="xReader.xml" target="_blank">xClient.xml</a></li>
+			<li>소스 : <a href="xReader.js" target="_blank">xReader.js</a>, <a href="xReader.full.js" target="_blank">xReader.full.js</a>, <a href="xReader.xml" target="_blank">xReader.xml</a></li>
 			<li>만든이 : <a href="http://bootleg.egloos.com/321865" target="_blank">SD05[blog]</a>, <a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a></li>
 		</ul>
 		<h3 style="font-style:italic;color:#FF0000;">제한 철폐!</h3>
@@ -50,7 +46,7 @@
 		<h3>xReader 사용방법</h3>
 
 		<div class="exCode">
-			<span class="gr">&lt;script src=<span class="rd">"http://kincrew.github.com/xClient/xReader.js"</span>>&lt;/script></span> <br/>
+			<span class="gr">&lt;script src=<span class="rd">"http://kincrew.github.com/xReader/xReader.js"</span>>&lt;/script></span> <br/>
 			<span class="gr">&lt;script type="text/javascript"></span> <br/>
 			xReader(<span class="rd">"http://www.yahoo.com/"</span>, function(data){ <br/>
 			&nbsp; &nbsp; alert(data.content); <br/>
@@ -128,7 +124,7 @@
 		</ul>
 		<table>
 		<tr><th>option</th><th>설명</th><th>기본값 및 가능값</th></tr>
-		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xClient/xClient.xml"</td></tr>
+		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
 		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td>10000 (10초)</td></tr>
 		<tr><th>charset</th><td>대상 encoding 강제 지정</td><td>"자동인식"</td></tr>
 		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td>"get" | "post"</td></tr>
@@ -158,12 +154,12 @@
 			&nbsp; &nbsp; alert(data.content); <br/>
 			})
 			<div id="exDemo2" class="exButton">실행하기</div>
-		</div>		
+		</div>
 		<p class="fs rd"> 참고) xReader.full.js로 사용시, option에서 target을 설정하면 해당 요소 내부에 바로 추가됩니다.</p>	
 		<!--
 		<h5>JSON</h5>
 		<div class="exCode">
-			xReader(<span class="rd">"kincrew.github.com/xClient/scripts/jsonTest.json"</span>, function(data){ <br/>
+			xReader(<span class="rd">"kincrew.github.com/xReader/scripts/jsonTest.json"</span>, function(data){ <br/>
 			&nbsp; &nbsp; alert(data.content); <br/>
 			})
 			<div id="exDemo3" class="exButton">실행하기</div>
@@ -214,23 +210,26 @@
 		</ul>
 		
 		<h3>기타</h3>
-		<p>본 소스는 <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>을 이용하며 open data table을 사용합니다. open data table의 data.headers를 수정한 <a href="xClient.xml" target="_blank">xClient.xml</a> 테이블을 사용합니다. 보다 다양한 기능을 원한다면, xClient(작업중)를 이용하면 되겠습니다.</p>
+		<p>본 소스는 <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>을 이용하며 open data table을 사용합니다. open data table의 data.headers를 수정한 <a href="xReader.xml" target="_blank">xReader.xml</a> 테이블을 사용합니다. 보다 다양한 기능을 원한다면, xClient(작업중)를 이용하면 되겠습니다.</p>
+
+		
+		<h3>HISTORY </h3>
+		<ul>
+			<li>2012-11-04 : format 테스트 및 지원 (json, jsonp, dom, dom2), target 지원</li>
+		</ul>
 
 		<h3>지원 및 연락처</h3>
-
 		<p>사용에 문제가 있거나 의문 및 추가적 지원이 필요하다면 <a href="mailto:oneiroi@outlook.com">oneiroi@outlook.com</a>나 <a href="http://bootleg.egloos.com/321865" target="_blank">블로그</a>로 연락하시기 바랍니다.</p>
 		<img src="images/yql.gif" style="float:right;width:64px;"/> powered by <a href="http://developer.yahoo.com/yql/" target="_blank">Yahoo! Query Language</a>
 		<div class="clear"></div>
-      </div>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <div class="inner">
-        <p class="copyright">xReader maintained by <a href="https://github.com/kincrew">KINcrew</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </div>
-    </div>
-
-  </body>
+	  </div>
+	</div>
+	<!-- FOOTER  -->
+	<div id="footer_wrap" class="outer">
+	  <div class="inner">
+		<p class="copyright">xReader maintained by <a href="https://github.com/kincrew">KINcrew</a></p>
+		<p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+	  </div>
+	</div>
+</body>
 </html>
