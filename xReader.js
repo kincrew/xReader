@@ -34,7 +34,7 @@ g.xReader = function(a,b,c,o) {
 	a='USE "'+h+'kincrew.github.com/xReader/xReader.xml" AS x; SELECT * FROM x WHERE url="'+a+q;
 	g[i]=function(r){
 		(r.error)?o?o(r.error):c(r):c(r.query.results&&r.query.results.resources);
-		try{delete g[i]}catch(err){g[i]=null}; // under IE8
+		try{delete g[i]}catch(err){g[i]=undefined}; // under IE8
 		e.removeChild(d.getElementById(i));
 	}
 	var s=d.createElement('script');

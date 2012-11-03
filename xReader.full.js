@@ -168,7 +168,7 @@ var clear = function(option) {
 }
 
 var remove = function(id) {
-	try {delete window[id]} catch (err){window[id]=null}
+	try {delete window[id]} catch (err){window[id]=undefined}
 }
 
 })(window);
