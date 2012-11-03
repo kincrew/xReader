@@ -126,7 +126,7 @@ var excute = function(data, option) {
 	var data       = (option.problem) ? undefined : data.query.results.resources;
 	var content    = (option.problem) ? undefined : data && data.content;
 	if (content) {
-		switch (option.type) {
+		switch (option.format) {
 			case "json"  :
 				cbData = oJSON(content);
 				break;
