@@ -159,7 +159,7 @@ var strToDom = function(str, type) {
 
 var appendDom = function(target, child) {
 	if (typeof child == "string") target.innerHTML = child;
-	else target.appendChild(child);
+	else target.parentNode.replaceChild(child, target);
 	return target;
 }
 
