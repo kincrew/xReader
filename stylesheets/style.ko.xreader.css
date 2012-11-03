@@ -167,21 +167,28 @@ hr {
 }
 
 table {
-  border: 1px solid #373737;
+  border: 5px solid #373737;
   margin-bottom: 20px;
   text-align: left;
+  font-size: 12px;
+  width: 100%;
  }
 
 th {
   font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 10px;
-  background: #373737;
+  padding: 7px 5px;
+  font-weight: bold;
+  background: #616161;
   color: #fff;
+  text-shadow: 1px 1px #3C3C3C;
+  text-align: center;
+  border: 1px solid #4D4D4D;
  }
 
 td {
-  padding: 10px;
-  border: 1px solid #373737;
+  padding: 7px 5px;
+  background: #e7e7e7 !important;
+  border: 1px solid #4D4D4D;
  }
 
 form {
@@ -312,14 +319,18 @@ Code syntax
 	color: #780078;
 }
 .rd {
-	color: #BF0000;
+	color: #B93000;
 }
 .gr {
 	color: #209020;
 }
+.or {
+	color: #E36000;
+}
+
 
 ul.strike li {
-	color : #58AC58
+	color : #B93000
 }
 button {
 	background: #DF0000;
@@ -402,8 +413,9 @@ div.exDemoResult img {
 	display:none;
 }
 #exDemoResult4 div img {
-	width: 180px;
-	border-radius: 10px;
+	width: 172px;
+	border:5px solid #181818;
+	box-shadow:0 0 0 #000;
 }
 .clear {
 	clear:both;

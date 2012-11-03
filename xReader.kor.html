@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset='utf-8' />
-	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<!--<meta http-equiv="X-UA-Compatible" content="chrome=1" />-->
 	<meta name="description" content="xReader KOREAN : Javscript Fucntion for accessing other resource wth YQL" />
 	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.ko.xreader.css">
 	<script src="javascripts/jquery.min.js" type="text/javascript"></script>
@@ -24,13 +24,13 @@
 	<div id="main_content_wrap" class="outer">
 	  <div id="main_content" class="inner">
 		<h3>xReader 소개</h3>
-		<p>xReader는 외부 다른 텍스트 형식의 컨텐츠를 자유롭게 불러오게 만들어진 간결한 함수입니다. </p>
+		<p>xReader는 자바스크립트상의 외부의 다른 텍스트 형식 컨텐츠를 제약없이 자유롭게 불러오게 만들어진 함수입니다. </p>
 		<ul>
 			<li>버전 : v0.0.75a - 2012-11-04</li>
 			<li>라이선스 : MIT License</li>
 			<li>소스   <br/>
-					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원 버전 <br/>
-					<a href="xReader.js" target="_blank">xReader.js</a> - option 미지원의 최소 버전 <br/>
+					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원 일반 버전 <br/>
+					<a href="xReader.js" target="_blank">xReader.js</a> - option 미지원 최소 버전 <br/>
 					<a href="xReader.xml" target="_blank">xReader.xml</a> - YQL에서 사용하는 open data table</li>
 			<li>만든이 : <a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (블로그)</a>, <a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a></li>
 		</ul>
@@ -49,9 +49,9 @@
 		<h3>xReader 사용방법</h3>
 
 		<div class="exCode">
-			<span class="gr">&lt;script src=<span class="rd">"http://kincrew.github.com/xReader/xReader.full.js"</span>>&lt;/script></span> <br/>
-			<span class="gr">&lt;script type="text/javascript"></span> <br/>
-			xReader(<span class="rd">"http://www.yahoo.com/"</span>, function(data){ <br/>
+			<span class="gr">&lt;script <span class="or">src</span>=<span class="rd">"http://kincrew.github.com/xReader/xReader.full.js"</span>>&lt;/script></span> <br/>
+			<span class="gr">&lt;script <span class="or">type</span>=<span class="rd">"text/javascript"</span>></span> <br/>
+			xReader(<span class="rd">"http://www.yahoo.com/"</span>, function(data) { <br/>
 			&nbsp; &nbsp; alert(data.content); <br/>
 			})<br/>
 			<div id="exDemo1" class="exButton">실행하기</div>
@@ -74,7 +74,7 @@
 		<h3>xReader API</h3>
 
 		<div class="exCode">
-			xReader(<span class="rd">URL</span>, <span class="gr">CSS</span>, <span class="rd">callback</span>, <span class="gr">error</span>, <span class="gr"><i>option</i></span>)<br/>
+			xReader(<span class="rd">"URL"</span>, <span class="gr">"CSS"</span>, <span class="rd">callback</span>, <span class="gr">error</span>, <span class="gr"><i>option</i></span>)<br/>
 		</div>
 		<h5> URL </h5>
 		<ul>
@@ -127,18 +127,19 @@
 		</ul>
 		<table>
 		<tr><th>option</th><th>설명</th><th>기본값 및 가능값</th></tr>
-		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td>10000 (10초)</td></tr>
+		<tr><th>content</th><td>data의 전송 (준비중)</td><td>""</td></tr>
+		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>객체</td></tr>
+		<tr><th>format</th><td>결과 형식의 적당 처리</td><td> 미설정 | "json" | "jsonp" | "dom" | "dom2" </td></tr>
+		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>객체</td></tr>
 		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td>"get" | "post"</td></tr>
+		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>""</td></tr>
 		<tr><th>referer</th><td>referer 설정 </td><td>""</td></tr>
+		<tr><th>ssl</th><td>YQL과 SSL 연결</td><td> 미설정 | "1" </td></tr>
 		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
 		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>DOM 요소</td></tr>
-		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>""</td></tr>
-		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> 미설정 | "current" | "사용자 설정"</td></tr>
-		<tr><th>headers</th><td>해당 http 요청시 사용 header </td><td>객체</td></tr>
-		<tr><th>cookie</th><td>해당 http 요청시 사용 cookie </td><td>객체</td></tr>
-		<tr><th>format</th><td>대상 형식에서 자동 반환 처리시</td><td> 미설정 | "json" | "jsonp" | "dom" | "dom2" </td></tr>
 		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td>false | true </td></tr>
-		<tr><th>content</th><td>data의 전송 (준비중)</td><td>""</td></tr>
+		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td>10000 (10초)</td></tr>
+		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> 미설정 | "current" | "사용자 설정"</td></tr>
 		</table>
 		<ul>
 			<li>timeout 발생시, error함수가 실행되며 미존재시 callback 함수가 실행됩니다.</li>
@@ -212,7 +213,7 @@
 		<ul>
 			<li>2012-11-04  <br/>
 				&nbsp; format 테스트 및 지원 (json, jsonp, dom, dom2), target 지원 <br/>
-				&nbsp; JSONP 오류 수정, DATA TABLE param 사용 중지
+				&nbsp; JSONP 오류 수정, DATA TABLE  - param 사용 중지, URL의 http:// 추가는 테이블상으로 변경
 			</li>
 		</ul>
 

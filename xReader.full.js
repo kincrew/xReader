@@ -31,8 +31,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 (function(g){
 
 var headElement = document.getElementsByTagName("head")[0];
-var $ = function(e) { return document.getElementById(e)};
-
 g.xReader = function() {
 	var option = {
 		id     :  "_" + (new Date()).getTime() + Math.floor(Math.random()*100)
@@ -60,13 +58,14 @@ g.xReader = function() {
 		option.result = data;
 		if (data.error) option.problem = data.error;
 		excute(data, option);
+		remove(option.id);
 	}
 	YQL(option);
 	option.timerId = setTimeout(function(){
 		option.status = "error";
 		option.result = option.problem = {lang:"en-US", description:"timeout"};
 		excute(option.problem, option);
-	}, option.timeout || xReader.timeout || 10000); //option.timeout || xReader.timeout || 
+	}, option.timeout || xReader.timeout || 10000); //option.timeout || xReader.timeout 
 }
 var query = function(option, encode) {
 	var statement = "";
@@ -166,7 +165,10 @@ var appendDom = function(target, child) {
 var clear = function(option) {
 	if (option.timerId) clearTimeout(option.timerId);
 	headElement.removeChild(option.script);
-	delete g[option.id];
 }
 
-})(this);
+var remove = function(id) {
+	try {delete window[id]} catch (err){window[id]=null}
+}
+
+})(window);
