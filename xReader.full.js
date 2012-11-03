@@ -81,7 +81,6 @@ var query = function(option, encode) {
 	if (option.method)  statement += " AND method='" + option.method + "'";
 	if (option.css)     statement += " AND css='" + option.css + "'";
 	if (option.tidy)    statement += " AND tidy='1'";
-	if (option.charset) statement += " AND charset='" + option.charset + "'";
 	if (option.referer) statement += " AND referer='" + option.referer + "'";
 	if (option.headers) statement += " AND headers='" + oJSON(option.headers) + "'";
 	if (option.cookie)  statement += " AND cookie='" + oJSON(option.cookie) + "'";
@@ -103,13 +102,17 @@ var oJSON = function(target) {
 			result += '"'+key+ '" : "' + target[key] +  '" ';
 		}
 		return '{ ' + result + ' }';
-	} else return (oJSON.ecma5) ? JSON.parse(target) : eval('('+target+')');
+	} else {
+		console.log(typeof target);
+		return (oJSON.ecma5) ? JSON.parse(target) : eval('('+target+')');
+	}
 };
 if (window.JSON) oJSON.ecma5 = true;
 
 var YQL = function(option){
 	var script = option.script = document.createElement('script');
 	var src = "query.yahooapis.com/v1/public/yql?q=" + query(option, true) + "&format=json&callback="+ option.id;
+	if (option.format == "json" || option.format == "jsonp") src+="&jsonCompat=new";
 	src = (option.ssl) ? "http://" + src : "https://" + src;
 	script.setAttribute("charset", "utf-8");
 	script.setAttribute("type", "text/javascript");
@@ -121,6 +124,7 @@ var YQL = function(option){
 var excute = function(data, option) {
 	clear(option);
 	option.status = (option.problem) ?  "error" : "finish";
+	console.log(option);
 	var cbReturn, cbData;
 	var callback   = (option.problem&&option.error) ? option.error : option.callback;
 	var data       = (option.problem) ? undefined : data.query.results.resources;
@@ -132,7 +136,7 @@ var excute = function(data, option) {
 				break;
 			case "jsonp" :
 				content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
-				cbData = oJSON(content);
+				cbData =  eval('('+content+')');
 				break;
 			case "dom"   :
 				cbData = strToDom(content);

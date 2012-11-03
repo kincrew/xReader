@@ -26,7 +26,7 @@
 		<h3>xReader 소개</h3>
 		<p>xReader는 외부 다른 텍스트 형식의 컨텐츠를 자유롭게 불러오게 만들어진 간결한 함수입니다. </p>
 		<ul>
-			<li>버전 : v0.0.76a - 2012-11-04</li>
+			<li>버전 : v0.0.75a - 2012-11-04</li>
 			<li>라이선스 : MIT License</li>
 			<li>소스 : <a href="xReader.js" target="_blank">xReader.js</a>, <a href="xReader.full.js" target="_blank">xReader.full.js</a>, <a href="xReader.xml" target="_blank">xReader.xml</a></li>
 			<li>만든이 : <a href="http://bootleg.egloos.com/321865" target="_blank">SD05[blog]</a>, <a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a></li>
@@ -124,20 +124,19 @@
 		</ul>
 		<table>
 		<tr><th>option</th><th>설명</th><th>기본값 및 가능값</th></tr>
-		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
 		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td>10000 (10초)</td></tr>
-		<tr><th>charset</th><td>대상 encoding 강제 지정</td><td>"자동인식"</td></tr>
 		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td>"get" | "post"</td></tr>
 		<tr><th>referer</th><td>referer 설정 </td><td>""</td></tr>
-		<tr><th>target</th><td>해당 DOM 요소에 결과 출력</td><td>DOM 요소</td></tr>
+		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
+		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>DOM 요소</td></tr>
 		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>""</td></tr>
-		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td>""</td></tr>
+		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> 미설정 | "current" | "사용자 설정"</td></tr>
 		<tr><th>headers</th><td>해당 http 요청시 사용 header </td><td>객체</td></tr>
 		<tr><th>cookie</th><td>해당 http 요청시 사용 cookie </td><td>객체</td></tr>
 		<tr><th>params</th><td>대상 url에서의 param 추가 </td><td>객체</td></tr>
-		<tr><th>format</th><td>대상의 형식(JSONP인경우, 적당히 변경)</td><td>"" | "JSONP"</td></tr>
+		<tr><th>format</th><td>대상 형식에서 자동 반환 처리시</td><td> 미설정 | "json" | "jsonp" | "dom" | "dom2" </td></tr>
 		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td>false | true </td></tr>
-		<tr><th>content</th><td>data의 전송</td><td>""</td></tr>
+		<tr><th>content</th><td>data의 전송 (준비중)</td><td>""</td></tr>
 		</table>
 		<ul>
 			<li>timeout 발생시, error함수가 실행되며 미존재시 callback 함수가 실행됩니다.</li>
@@ -168,27 +167,22 @@
 		<h5>JSONP / JSON</h5>
 		<div class="exCode">
 			<span class="gr">/* flickr에서 고양이 출력 */</span><br/>
-			var url = <span class="rd">"http://api.flickr.com/services/feeds/photos_public.gne?"</span>; <br/>
-			url += <span class="rd">"tags=cat&tagmode=any&format=json&jsoncallback=temp"</span>; <br/><br/>
-			xReader(<span class="rd">url</span>, function(data){ <br/>
-			&nbsp; &nbsp; <span class="gr">/* JSONP 정리 - callback 부분 제거후 객체 반환 */</span><br/>
-			&nbsp; &nbsp; <span class="rd">var data = data.content;<br/>
-			&nbsp; &nbsp; data = data.substring(data.indexOf("("), data.lastIndexOf(")")+1); <br/>
-			&nbsp; &nbsp; data = eval(data); </span><br/><br/>
-			&nbsp; &nbsp; var items = data.items; <br/>
-			&nbsp; &nbsp; var target = document.getElementById("exDemoResult4"); <br/>
+			var url = <a href="http://api.flickr.com/services/feeds/photos_public.gne" target="_blank"><span class="rd">"http://api.flickr.com/services/feeds/photos_public.gne"</span></a>;<br/>
+			xReader(url, function(json){ <br/>
+			&nbsp; &nbsp; var items = json.items; <br/>
 			&nbsp; &nbsp; var html = ""; <br/>
 			&nbsp; &nbsp; for (var i=0; items.length > i ;i++ ) { <br/>
 			&nbsp; &nbsp; &nbsp; &nbsp; html += "&lt;div>" + items[i].description + "&lt;/div>"; <br/>
 			&nbsp; &nbsp; } <br/>
-			&nbsp; &nbsp; target.innerHTML = html; <br/>
-			})
+			&nbsp; &nbsp; return html; <br/>
+			},<br/>
+			{<br/>
+			&nbsp; &nbsp; params : {tags: "cat", tagmode:"any", format: "json"},<br/>
+			&nbsp; &nbsp; format : "jsonp",<br/>
+			&nbsp; &nbsp; target : document.getElement("exDemoResult4")<br/>
+			})<br/>
 			<div id="exDemo4" class="exButton">실행하기</div>
 		</div>
-		<p class="fs rd"> 
-			참고) JSON인 경우, 위 소스에서 substring 메서드가 사용된 8행을 제거하면 동일하겠습니다.<br/>
-			참고) xReader.full.js로 사용시, option에서 foramt을 jsonp로 설정하면 바로 사용가능한 JSON으로 받습니다. 
-		</p>
 		<div id="exDemoResult4" class="exDemoResult"> 
 		</div>
 		<h5>RSS / XML</h5>
