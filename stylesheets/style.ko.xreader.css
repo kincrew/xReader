@@ -316,7 +316,7 @@ Code syntax
 *******************************************************************************/
 
 .pp {
-	color: #780078;
+	color: #C70080;
 }
 .rd {
 	color: #B93000;
@@ -376,7 +376,7 @@ div.exButton.load {
 }
 div.exCode {
 	position: relative;
-	padding:5px 15px;
+	padding:8px 15px;
 	background:#fff;
 	border:5px solid #ddd; 
 	font: 14px/18px 'courier new', monospace;
