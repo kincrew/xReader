@@ -39,9 +39,6 @@
 					if (ua) request.header('User-Agent', ua);
 					if (cookie) request.header('Cookie', cookie);
 					if (referer) request.header('Referer', referer);
-					if (authorization) request.header('Authorization', authorization);
-					if (charset) request.forceCharset(charset);
-					else request.fallbackCharset("utf-8, euc-kr, iso-8859-1");
 					if (contenttype) request.contentType(contenttype);
 					if (timeout) request.timeout(timeout);
 					if (param) {
@@ -53,6 +50,7 @@
 						var headers = JSON.parse(headers);
 						for (var key in headers) request.header(key, headers[key]);
 					}
+					request.fallbackCharset("utf-8, euc-kr, iso-8859-1");
 					// SENDING HTTP REQUEST
 					var resp ;
 					if (method == "get") resp = request.get();
