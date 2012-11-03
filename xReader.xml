@@ -12,7 +12,6 @@
             <inputs>
 				<key id="charset" type="xs:string" paramType="variable" required="false"/>
 				<key id="content" type="xs:string" paramType="variable" required="false"/>
-				<key id="type"    type="xs:string" paramType="variable" required="false"/>
 				<key id="cookie"  type="xs:string" paramType="variable" required="false"/>
 				<key id="css"     type="xs:string" paramType="variable" required="false"/>
 				<key id="headers" type="xs:string" paramType="variable" required="false"/>
@@ -110,9 +109,6 @@
 							content = '';
 						}
 					} else content = '';
-					if (content && (type == "jsonp")) {
-						content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
-					}
 					if (xpath || css) {
 						if (css) {
 							y.include("http://css2xpath.googlecode.com/svn/trunk/build/css2xpath.min.js");

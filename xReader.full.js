@@ -131,6 +131,7 @@ var excute = function(data, option) {
 				cbData = oJSON(content);
 				break;
 			case "jsonp" :
+				content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
 				cbData = oJSON(content);
 				break;
 			case "dom"   :
