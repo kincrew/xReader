@@ -76,7 +76,7 @@ var query = function(option, encode) {
 		return option.statement = (encode) ? encodeURIComponent(statement) : statement;
 	}
 	statement += option.query || "SELECT * FROM xReader WHERE url='" + option.url + "'";
-	if (option.format)  statement += " AND format='" + option.format + "'";
+	if (option.type)    statement += " AND type='" + option.type + "'";
 	if (option.ua)      statement += " AND ua='" + option.ua + "'";
 	if (option.method)  statement += " AND method='" + option.method + "'";
 	if (option.css)     statement += " AND css='" + option.css + "'";
@@ -126,7 +126,7 @@ var excute = function(data, option) {
 	var data       = (option.problem) ? undefined : data.query.results.resources;
 	var content    = (option.problem) ? undefined : data && data.content;
 	if (content) {
-		switch (option.format) {
+		switch (option.type) {
 			case "json"  :
 				cbData = oJSON(content);
 				break;

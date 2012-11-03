@@ -10,22 +10,20 @@
     <bindings>
         <select itemPath="" produces="XML">
             <inputs>
-				<key id="authorization" type="xs:string" paramType="variable" required="false"/>
-				<key id="charset"       type="xs:string" paramType="variable" required="false"/>
-				<key id="content"       type="xs:string" paramType="variable" required="false"/>
-				<key id="contenttype"   type="xs:string" paramType="variable" required="false"/>
-				<key id="cookie"        type="xs:string" paramType="variable" required="false"/>
-				<key id="css"           type="xs:string" paramType="variable" required="false"/>
-				<key id="format"        type="xs:string" paramType="variable" required="false"/>
-				<key id="headers"       type="xs:string" paramType="variable" required="false"/>
-				<key id="method"        type="xs:string" paramType="variable" required="false"/>
-				<key id="param"         type="xs:string" paramType="variable" required="false"/>
-				<key id="referer"       type="xs:string" paramType="variable" required="false"/>
-				<key id="tidy"          type="xs:string" paramType="variable" required="false"/>
-				<key id="timeout"       type="xs:string" paramType="variable" required="false"/>
-				<key id="ua"            type="xs:string" paramType="variable" required="false"/>
-				<key id="url"           type="xs:string" paramType="variable" required="true"/>
-				<key id="xpath"         type="xs:string" paramType="variable" required="false"/>
+				<key id="charset" type="xs:string" paramType="variable" required="false"/>
+				<key id="content" type="xs:string" paramType="variable" required="false"/>
+				<key id="type"    type="xs:string" paramType="variable" required="false"/>
+				<key id="cookie"  type="xs:string" paramType="variable" required="false"/>
+				<key id="css"     type="xs:string" paramType="variable" required="false"/>
+				<key id="headers" type="xs:string" paramType="variable" required="false"/>
+				<key id="method"  type="xs:string" paramType="variable" required="false"/>
+				<key id="param"   type="xs:string" paramType="variable" required="false"/>
+				<key id="referer" type="xs:string" paramType="variable" required="false"/>
+				<key id="tidy"    type="xs:string" paramType="variable" required="false"/>
+				<key id="timeout" type="xs:string" paramType="variable" required="false"/>
+				<key id="ua"      type="xs:string" paramType="variable" required="false"/>
+				<key id="url"     type="xs:string" paramType="variable" required="true"/>
+				<key id="xpath"   type="xs:string" paramType="variable" required="false"/>
             </inputs>
             <execute>
                 <![CDATA[
@@ -112,7 +110,7 @@
 							content = '';
 						}
 					} else content = '';
-					if (content && format == "jsonp") {
+					if (content && type == "jsonp") {
 						content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
 					}
 					if (xpath || css) {
