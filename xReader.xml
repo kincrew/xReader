@@ -40,7 +40,7 @@
 					if (ua) request.header('User-Agent', ua);
 					if (cookie) request.header('Cookie', cookie);
 					if (referer) request.header('Referer', referer);
-					if (contenttype) request.contentType(contenttype);
+					if (contenttype) request.contentType(contenttype); 
 					if (timeout) request.timeout(timeout);
 					if (param) {
 						if (!JSON) y.include('http://www.datatables.org/javascript/json2.js');
