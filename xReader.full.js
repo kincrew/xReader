@@ -124,10 +124,9 @@ var YQL = function(option){
 var excute = function(data, option) {
 	clear(option);
 	option.status = (option.problem) ?  "error" : "finish";
-	console.log(option);
 	var cbReturn, cbData;
 	var callback   = (option.problem&&option.error) ? option.error : option.callback;
-	var data       = (option.problem) ? undefined : data.query.results.resources;
+	var data       = (option.problem) ? undefined : data.query.results && data.query.results.resources;
 	var content    = (option.problem) ? undefined : data && data.content;
 	if (content) {
 		switch (option.format) {

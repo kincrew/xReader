@@ -12,6 +12,7 @@
             <inputs>
 				<key id="charset" type="xs:string" paramType="variable" required="false"/>
 				<key id="content" type="xs:string" paramType="variable" required="false"/>
+				<key id="contenttype" type="xs:string" paramType="variable" required="false"/>
 				<key id="cookie"  type="xs:string" paramType="variable" required="false"/>
 				<key id="css"     type="xs:string" paramType="variable" required="false"/>
 				<key id="headers" type="xs:string" paramType="variable" required="false"/>
