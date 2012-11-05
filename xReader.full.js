@@ -51,11 +51,12 @@ g.xReader = function() {
 				break;
 		}
 	}
-	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/xReader.xml";
+	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/yql/xReader.xml";
 	option.ua     = (option.ua == "current") ? navigator.userAgent : option.ua;
 	option.status = "init";
 	g[option.id]  = function(data) {
 		option.result = data;
+		if (option.problem) data.error = option.problem;
 		if (data.error) option.problem = data.error;
 		excute(data, option);
 		remove(option.id);
@@ -75,17 +76,23 @@ var query = function(option, encode) {
 		return option.statement = (encode) ? encodeURIComponent(statement) : statement;
 	}
 	statement += option.query || "SELECT * FROM xReader WHERE url='" + option.url + "'";
-	if (option.type)    statement += " AND type='" + option.type + "'";
-	if (option.ua)      statement += " AND ua='" + option.ua + "'";
-	if (option.method)  statement += " AND method='" + option.method + "'";
-	if (option.css)     statement += " AND css='" + option.css + "'";
-	if (option.tidy)    statement += " AND tidy='1'";
-	if (option.referer) statement += " AND referer='" + option.referer + "'";
-	if (option.headers) statement += " AND headers='" + oJSON(option.headers) + "'";
-	if (option.cookie)  statement += " AND cookie='" + oJSON(option.cookie) + "'";
-	if (option.param)   statement += " AND param='" + oJSON(option.param) + "'";
-	if (option.timeout) statement += ' AND timeout="' + option.timeout + '"';
-	if (option.content) statement += ' AND content="' + encodeURIComponent(content) + '"';
+	if (option.authorization)   statement += " AND authorization='" + option.authorization + "'";
+	if (option.charset)         statement += " AND charset='" + option.charset + "'";
+	if (option.cookie)          statement += " AND cookie='" + oJSON(option.cookie) + "'";
+	if (option.content)         statement += ' AND content="' + option.content + '"';
+	if (option.contentType)     statement += ' AND contentType="' + option.contentType + '"';
+	if (option.css)             statement += " AND css='" + option.css + "'";
+	if (option.fallbackCharset) statement += ' AND fallbackCharset="' + option.fallbackCharset + '"';
+	if (option.foreceCharset)   statement += ' AND foreceCharset="' + option.foreceCharset + '"';
+	if (option.headers)         statement += " AND headers='" + oJSON(option.headers) + "'";
+	if (option.method)          statement += " AND method='" + option.method + "'";
+	if (option.param)           statement += " AND param='" + oJSON(option.param) + "'";
+	if (option.referer)         statement += " AND referer='" + option.referer + "'";
+	if (option.tidy)            statement += " AND tidy='1'";
+	if (option.timeout)         statement += ' AND timeout="' + option.timeout + '"';
+	if (option.type)            statement += " AND type='" + option.type + "'";
+	if (option.ua)              statement += " AND ua='" + option.ua + "'";
+	if (option.xpath)           statement += ' AND xpath="' + option.xpath + '"';
 	option.query = statement;
 	return option.statement = (encode) ? encodeURIComponent(statement) : statement;
 }
@@ -121,32 +128,42 @@ var YQL = function(option){
 
 var excute = function(data, option) {
 	clear(option);
+	var cbData, callback;
+	var data    = (option.problem) ? undefined : data.query.results && data.query.results.resources;
+	var content = (option.problem) ? undefined : data && data.content;
 	option.status = (option.problem) ?  "error" : "finish"; 
-	var cbReturn, cbData;
-	var callback   = (option.problem&&option.error) ? option.error : option.callback;
-	var data       = (option.problem) ? undefined : data.query.results && data.query.results.resources;
-	var content    = (option.problem) ? undefined : data && data.content;
-	if (content) {
-		switch (option.format) {
-			case "json"  :
-				cbData = oJSON(content);
-				break;
-			case "jsonp" :
-				content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
-				cbData =  eval('('+content+')');
-				break;
-			case "dom"   :
-				cbData = strToDom(content);
-				break;
-			case "dom2"  :
-				cbData = strToDom(content, true);
-				break;
-			default :
-				cbData = data;
-				break;
+
+	if (content && option.format) {
+		try {
+			switch (option.format) {
+				case "json" :
+					if (!(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(content.replace(/"(\\.|[^"\\])*"/g, '')))) {
+						data.content = oJSON(content);
+					}
+					else {
+						content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
+						data.content  = eval('('+content+')');
+						option.format = "jsonp"; 
+					}
+					break;
+				case "dom"  :
+					data.content = strToDom(content);
+					break;
+				case "dom2" :
+					data.content = strToDom(content, true);
+					break;
+				default :
+					option.format = "string";
+					data.content  = content;
+					break;
+			}			
+		} catch (err) {
+			option.status = "error";
+			data.error = option.problem = {lang:"en-US", description:"parse error" };
 		}
 	}
-	cbReturn = callback(cbData, option);
+	callback = (option.problem&&option.error) ? option.error : option.callback;
+	cbReturn = callback(data, option);
 	if (cbReturn && option.target) appendDom(option.target, cbReturn);
 }
 

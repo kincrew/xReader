@@ -15,8 +15,7 @@
 	<div id="header_wrap" class="outer">
 		<div class="inner">
 		  <a id="forkme_banner" href="https://github.com/kincrew/xReader">View on GitHub</a>
-
-		  <h1 id="project_title">xReader v0.0.75a [DEMO]</h1>
+		  <h1 id="project_title">xReader v0.0.76a [DEMO]</h1>
 		  <h2 id="project_tagline">자유로운 리소스 접근의 최후 해결책</h2>
 		</div>
 	</div>
@@ -26,12 +25,12 @@
 		<h3>xReader 소개</h3>
 		<p>xReader는 자바스크립트상의 외부의 다른 텍스트 형식 컨텐츠를 제약없이 자유롭게 불러오게 만들어진 함수입니다. </p>
 		<ul>
-			<li>버전 : v0.0.75a - 2012-11-04</li>
+			<li>버전 : v0.0.76a - 2012-11-04</li>
 			<li>라이선스 : MIT License</li>
 			<li>소스   <br/>
 					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원 일반 버전 <br/>
 					<a href="xReader.js" target="_blank">xReader.js</a> - option 미지원 최소 버전 <br/>
-					<a href="xReader.xml" target="_blank">xReader.xml</a> - YQL에서 사용하는 open data table</li>
+					<a href="yql/xReader.xml" target="_blank">xReader.xml</a> - YQL에서 사용하는 open data table</li>
 			<li>만든이 : <a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (블로그)</a>, <a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a></li>
 		</ul>
 		<h3 style="font-style:italic;color:#FF0000;">제한 철폐!</h3>
@@ -72,7 +71,6 @@
 		</ul>
 
 		<h3>xReader API</h3>
-
 		<div class="exCode">
 			xReader(<span class="rd">"URL"</span>, <span class="gr">"CSS"</span>, <span class="rd">callback</span>, <span class="gr">error</span>, <span class="gr"><i>option</i></span>)<br/>
 		</div>
@@ -127,14 +125,17 @@
 		</ul>
 		<table>
 		<tr><th>option</th><th>설명</th><th>기본값 및 가능값</th></tr>
+		<tr><th>charset</th><td>charset</td><td>""</td></tr>
 		<tr><th>content</th><td>data의 전송 (준비중)</td><td>""</td></tr>
 		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>객체</td></tr>
-		<tr><th>format</th><td>결과 형식의 적당 처리</td><td> 미설정 | "json" | "jsonp" | "dom" | "dom2" </td></tr>
+		<tr><th>format</th><td>결과 형식의 적당 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td></tr>
+		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>""</td></tr>
+		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td>"utf-8, euc-kr, iso-8859-1"</td></tr>
 		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>객체</td></tr>
-		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td>"get" | "post"</td></tr>
+		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post"</td></tr>
 		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>""</td></tr>
 		<tr><th>referer</th><td>referer 설정 </td><td>""</td></tr>
-		<tr><th>ssl</th><td>YQL과 SSL 연결</td><td> 미설정 | "1" </td></tr>
+		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> 미설정 | "1" </td></tr>
 		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
 		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>DOM 요소</td></tr>
 		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td>false | true </td></tr>
@@ -175,8 +176,8 @@
 			<span class="gr">/* flickr에서 고양이 출력 */</span><br/>
 			var url = <a href="http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json" target="_blank"><span class="rd">"http://api.flickr.com/services/feeds/photos_public.gne?"</span></a>;<br/>
 			url += <span class="rd">"tags=cat&tagmode=any&format=json"</span>;<br/>
-			xReader(url, function(json){ <br/>
-			&nbsp; &nbsp; var items = json.items; <br/>
+			xReader(url, function(data){ <br/>
+			&nbsp; &nbsp; var items = data.content.items; <br/>
 			&nbsp; &nbsp; var html = ""; <br/>
 			&nbsp; &nbsp; for (var i=0; items.length > i ;i++ ) { <br/>
 			&nbsp; &nbsp; &nbsp; &nbsp; html += "&lt;div>" + items[i].description + "&lt;/div>"; <br/>
@@ -184,12 +185,13 @@
 			&nbsp; &nbsp; return html; <br/>
 			},<br/>
 			{ <br/>
-			&nbsp; &nbsp; format : "jsonp",  <span class="gr">// 대상 형식</span><br/>
+			&nbsp; &nbsp; format : "json",  <span class="gr">// 대상 형식</span><br/>
 			&nbsp; &nbsp; target : document.getElementById("exDemoResult4") <span class="gr">// 출력 대상</span><br/>
 			})<br/>
 			<div id="exDemo4" class="exButton">실행하기</div>
 		</div>
-		<p class="fs rd"> 참고) option의 target이 설정되고 callback 함수의 return 값이 있다면, return 값은 target 요소 내부로 바로 추가됩니다.</p>	
+		<p class="fs rd"> 참고) option의 target이 설정되고 callback 함수의 return 값이 있다면, return 값은 target 요소 내부로 바로 추가됩니다.</p>
+		<p class="fs rd"> 참고) jsonp은 option.format을 json으로 사용하여야 하며 자동으로 변환 됩니다. </p>
 		<div id="exDemoResult4" class="exDemoResult"> 
 		</div>
 		<h5>RSS / XML</h5>
@@ -209,12 +211,18 @@
 		</ul>
 		
 		<h3>기타</h3>
-		<p>본 소스는 <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>을 이용하며 open data table을 사용합니다. open data table의 data.headers를 수정한 <a href="xReader.xml" target="_blank">xReader.xml</a> 테이블을 사용합니다. 보다 다양한 기능을 원한다면, xClient(작업중)를 이용하면 되겠습니다.</p>
+		<p>본 소스는 <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>을 이용하며 open data table을 사용합니다. open data table의 data.headers를 수정한 <a href="yql/xReader.xml" target="_blank">xReader.xml</a> 테이블을 사용합니다. 보다 다양한 기능을 원한다면, xClient(작업중)를 이용하면 되겠습니다.</p>
 
 		
 		<h3>HISTORY </h3>
 		<ul>
-			<li>2012-11-04  <br/>
+			<li>2012-11-06 <br/>
+				&nbsp; format에 차이 없이 일관성 있게 data 인자 반환 (기존 header 생략되는 경우를 방지) <br/>
+				&nbsp; option 추가 (charset, fallbackCharset, xpath 적용)<br/>
+				&nbsp; option.format에서 json 제거 (jsonp 자동 인식)<br/>
+				&nbsp; xReader.xml의 업데이트 및 위치 변경 (root -> root/yql)
+			</li>
+			<li>2012-11-04 <br/>
 				&nbsp; format 테스트 및 지원 (json, jsonp, dom, dom2), target 지원 <br/>
 				&nbsp; JSONP 오류 수정, DATA TABLE  - param 사용 중지, URL의 http:// 추가는 테이블상으로 변경
 			</li>
