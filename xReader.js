@@ -29,10 +29,11 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 (function(g,m,d,u,f,h,q,z){
 g.xReader = function(a,b,c,o) {
-	var i="_"+(new Date()).getTime()+m.floor(m.random()*100),e=d.getElementsByTagName('head')[0];
+	var t,i="_"+(new Date()).getTime()+m.floor(m.random()*100),e=d.getElementsByTagName('head')[0];
 	b=((typeof b=="function")&&((c&&(o=c)&&(c=b))||(c=b)))?z:b;
 	a='USE "'+h+'kincrew.github.com/xReader/yql/xReader.xml" AS x; SELECT * FROM x WHERE url="'+a+q;
 	g[i]=function(r){
+		clearTimeout(t);
 		(r.error)?o?o(r.error):c(r):c(r.query.results&&r.query.results.resources);
 		try{delete g[i]}catch(err){g[i]=undefined}; // under IE8
 		e.removeChild(d.getElementById(i));
@@ -42,5 +43,6 @@ g.xReader = function(a,b,c,o) {
 	s[u]("id",i);
 	s[u]("src",h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent(b?a+' and css="'+b+q:a)+"&format=json&callback="+i);
 	e.appendChild(s);
+	t=setTimeout(function(){g[i]({err:{descrption:"timeout"}})}, g.xReader.timeout||10000)
 }
 })(this,Math,document,"setAttribute","callback=","http://",'"');

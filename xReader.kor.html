@@ -26,7 +26,7 @@
 		<p>xReader는 자바스크립트상의 외부의 다른 텍스트 형식 컨텐츠를 제약없이 자유롭게 불러오게 만들어진 함수입니다. </p>
 		<ul>
 			<li>버전 : v0.0.76a - 2012-11-04</li>
-			<li>라이선스 : MIT License</li>
+			<li>라이선스 : <a href="http://ko.wikipedia.org/wiki/MIT_%ED%97%88%EA%B0%80%EC%84%9C" target="_blank">MIT 허가서</a></li>
 			<li>소스   <br/>
 					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원 일반 버전 <br/>
 					<a href="xReader.js" target="_blank">xReader.js</a> - option 미지원 최소 버전 <br/>
@@ -50,8 +50,8 @@
 		<div class="exCode">
 			<span class="gr">&lt;script <span class="or">src</span>=<span class="rd">"http://kincrew.github.com/xReader/xReader.full.js"</span>>&lt;/script></span> <br/>
 			<span class="gr">&lt;script <span class="or">type</span>=<span class="rd">"text/javascript"</span>></span> <br/>
-			xReader(<span class="rd">"http://www.yahoo.com/"</span>, function(data) { <br/>
-			&nbsp; &nbsp; alert(data.content); <br/>
+			xReader(<span class="rd">"http://www.yahoo.com/"</span>, function(<span class="pp">data</span>) { <br/>
+			&nbsp; &nbsp; alert(<span class="pp">data.content</span>); <br/>
 			})<br/>
 			<div id="exDemo1" class="exButton">실행하기</div>
 			<span class="gr">&lt;/script></span>
@@ -89,7 +89,8 @@
 		<ul>
 			<li>필수 인자이고 함수 형식이어야 합니다. </li>
 			<li>callback 함수는 해당 컨텐츠의 로딩이 완료된 후 실행되는 함수입니다.</li>
-			<li>callback 함수 실행시 인자(객체)는 다음과 같이 구성됩니다.</li>
+			<li>한편 error 함수 미존재시 callback 함수가 대신 실행됩니다.</li>
+			<li>callback 함수 실행시 인자(객체)중 첫번째 data는 다음과 같이 구성됩니다.</li>
 		</ul>			
 		<div style="margin-top:8px;padding:5px 15px;background:#fff;border:5px solid #ddd; font: 14px/18px 'courier new', monospace">
 			{<br/>
@@ -116,6 +117,7 @@
 			&nbsp; &nbsp; description : "오류 내용" <br/>
 			}<br/>
 		</div>
+		<p class="fs rd"> [참고1] error의 발생여부 확인은 data.error의 존재나 option.status == "error"로 가능합니다.</p>
 		<h5> option </h5>
 		<ul>
 			<li>생략 가능하고 객체 형식이어야 합니다.</li>
@@ -125,31 +127,34 @@
 		</ul>
 		<table>
 		<tr><th>option</th><th>설명</th><th>기본값 및 가능값</th></tr>
-		<tr><th>charset</th><td>charset</td><td>""</td></tr>
+		<tr><th>charset</th><td>전송시 사용할 charset (준비중)</td><td>""</td></tr>
 		<tr><th>content</th><td>data의 전송 (준비중)</td><td>""</td></tr>
+		<tr><th>contentType</th><td>전송시 사용할 content-type (준비중)</td><td>""</td></tr>
 		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>객체</td></tr>
-		<tr><th>format</th><td>결과 형식의 적당 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td></tr>
+		<tr><th>format</th><td>최종 결과(data.content)의 형식에 대한 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td></tr>
 		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>""</td></tr>
 		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td>"utf-8, euc-kr, iso-8859-1"</td></tr>
 		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>객체</td></tr>
 		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post"</td></tr>
 		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>""</td></tr>
 		<tr><th>referer</th><td>referer 설정 </td><td>""</td></tr>
-		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> 미설정 | "1" </td></tr>
+		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> <u>"0"</u> | "1" </td></tr>
 		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
 		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>DOM 요소</td></tr>
-		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td>false | true </td></tr>
+		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td> <u>false</u> | true </td></tr>
 		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td>10000 (10초)</td></tr>
-		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> 미설정 | "current" | "사용자 설정"</td></tr>
+		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> <u>미설정</u> | "current" | "사용자 설정"</td></tr>
 		</table>
 		<ul>
-			<li>error함수 미존재시 callback 함수가 실행됩니다.</li>
-			<li>timeout 발생시, error로 처리됩니다.</li>
 			<li>callback및 error 함수에서 전달받은 option인자에 유용한 추가적 프로퍼티가 있습니다. <br/>
 				id, query, statement, problem, status, table, result 등
 			</li>
+			<li>
+				tidy 옵션은 특히 xml 문서의 요소를 객체로 직접 받아 사용할 경우 상당히 유용합니다. <br/>
+				그러나 적절히 escape되지 않은 문서인 경우 오류가능성이 있기에 미리 충분한 확인히 필요합니다.
+			</li>
 			<li>timeout은 xReader.timeout으로 전체 설정할 수 있습니다.</li>
-			<li>아직 충분히 테스트되지 못하였습니다. 변경 가능성이 있습니다.</li>
+			<li>아직 충분히 테스트되지 못한 옵션 및 향후 변경 가능성도 있습니다.</li>
 		</ul>
 
 		<h3>유용한 간단 예제들</h3>
@@ -157,8 +162,8 @@
 		<h5>HTML</h5>
 		<div class="exCode">
 			<span class="gr">/* 네이버 뉴스 메인 기사 불러오기 */</span><br/>
-			xReader(<span class="rd">"news.naver.com"</span>, <span class="rd">"dl.mtype_head dt a"</span>, function(data){ <br/>
-			&nbsp; &nbsp; alert(data.content); <br/>
+			xReader(<span class="rd">"news.naver.com"</span>, <span class="rd">"dl.mtype_head dt a"</span>, function(<span class="pp">data</span>){ <br/>
+			&nbsp; &nbsp; alert(<span class="pp">data.content</span>); <br/>
 			})
 			<div id="exDemo2" class="exButton">실행하기</div>
 		</div>
@@ -174,24 +179,25 @@
 		<h5>JSONP / JSON</h5>
 		<div class="exCode">
 			<span class="gr">/* flickr에서 고양이 출력 */</span><br/>
-			var url = <a href="http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json" target="_blank"><span class="rd">"http://api.flickr.com/services/feeds/photos_public.gne?"</span></a>;<br/>
-			url += <span class="rd">"tags=cat&tagmode=any&format=json"</span>;<br/>
-			xReader(url, function(data){ <br/>
-			&nbsp; &nbsp; var items = data.content.items; <br/>
-			&nbsp; &nbsp; var html = ""; <br/>
+			var <span class="pp">url</span> = <a href="http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json" target="_blank"><span class="rd">"http://api.flickr.com/services/feeds/photos_public.gne?"</span></a>;<br/>
+			<span class="pp">url</span> += <span class="rd">"tags=cat&tagmode=any&format=json"</span>;<br/>
+			xReader(<span class="pp">url</span>, function(<span class="pp">data</span>){ <br/>
+			&nbsp; &nbsp; var <span class="pp">items</span> = data.content.items; <br/>
+			&nbsp; &nbsp; var <span class="pp">html</span> = ""; <br/>
 			&nbsp; &nbsp; for (var i=0; items.length > i ;i++ ) { <br/>
-			&nbsp; &nbsp; &nbsp; &nbsp; html += "&lt;div>" + items[i].description + "&lt;/div>"; <br/>
+			&nbsp; &nbsp; &nbsp; &nbsp; <span class="pp">html</span> += "<span class="gr">&lt;div></span>" + items[i].description + "<span class="gr">&lt;/div></span>"; <br/>
 			&nbsp; &nbsp; } <br/>
-			&nbsp; &nbsp; return html; <br/>
+			&nbsp; &nbsp; return <span class="pp">html</span>; <br/>
 			},<br/>
-			{ <br/>
-			&nbsp; &nbsp; format : "json",  <span class="gr">// 대상 형식</span><br/>
+			<span class="or">{ <br/>
+			&nbsp; &nbsp; format : "json",  <span class="gr">// 대상 변환 형식</span><br/>
 			&nbsp; &nbsp; target : document.getElementById("exDemoResult4") <span class="gr">// 출력 대상</span><br/>
-			})<br/>
+			}</span>)<br/>
 			<div id="exDemo4" class="exButton">실행하기</div>
 		</div>
-		<p class="fs rd"> 참고) option의 target이 설정되고 callback 함수의 return 값이 있다면, return 값은 target 요소 내부로 바로 추가됩니다.</p>
-		<p class="fs rd"> 참고) jsonp은 option.format을 json으로 사용하여야 하며 자동으로 변환 됩니다. </p>
+		<p class="fs rd">
+			[참고2] option의 target이 설정되고 callback 함수의 return 값이 있다면, return 값은 target 요소 내부로 바로 추가됩니다.<br />
+			[참고3] jsonp은 option.format을 json으로 사용하여야 하며 자동으로 변환 됩니다. </p>
 		<div id="exDemoResult4" class="exDemoResult"> 
 		</div>
 		<h5>RSS / XML</h5>
@@ -206,8 +212,9 @@
 		</div>
 		<h3>FAQ</h3> 
 		<ul>
-			<li>xReader.js와 xReader.full.js의 차이는 option의 사용여부에 있습니다.</li>
-			<li>xReader.js는 간결하고 짧은 코드이며, 추가적인 timeout 처리가 필요할 수 있습니다.</li>
+			<li>
+				xReader.js와 xReader.full.js의 차이는 option의 사용여부에 있습니다. <br/>
+				xReader.js는 컨텐츠만 불러오는데 유용한 간결하고 짧은 코드입니다.</li>
 		</ul>
 		
 		<h3>기타</h3>
@@ -217,10 +224,11 @@
 		<h3>HISTORY </h3>
 		<ul>
 			<li>2012-11-06 <br/>
-				&nbsp; format에 차이 없이 일관성 있게 data 인자 반환 (기존 header 생략되는 경우를 방지) <br/>
-				&nbsp; option 추가 (charset, fallbackCharset, xpath 적용)<br/>
-				&nbsp; option.format에서 json 제거 (jsonp 자동 인식)<br/>
-				&nbsp; xReader.xml의 업데이트 및 위치 변경 (root -> root/yql)
+				&nbsp; (오전) format에 따르는 차이 없이 data 인자 반환 (기존 일부 format에서 header 생략의 방지 필요) <br/>
+				&nbsp; (오전) option 추가 (charset, fallbackCharset, xpath 적용)<br/>
+				&nbsp; (오전) option.format에서 json 제거 (jsonp 자동 인식)<br/>
+				&nbsp; (오전) xReader.xml의 업데이트 및 위치 변경 (root -> root/yql) <br/>
+				&nbsp; (오후) xReader.js의 timeout 추가
 			</li>
 			<li>2012-11-04 <br/>
 				&nbsp; format 테스트 및 지원 (json, jsonp, dom, dom2), target 지원 <br/>
