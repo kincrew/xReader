@@ -176,19 +176,19 @@ table {
 
 th {
   font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 7px 5px;
+  padding: 5px;
   font-weight: bold;
   background: #616161;
   color: #fff;
   text-shadow: 1px 1px #3C3C3C;
   text-align: center;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #757575;
  }
 
 td {
-  padding: 7px 5px;
+  padding: 5px;
   background: #e7e7e7 !important;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #AEAEAE;
  }
 
 form {
@@ -426,4 +426,9 @@ div.exDemoResult img {
 h3, h5 {
 	color:#3C3C3C;
 	text-shadow: 1px 1px #FFFFFF;
+}
+table td u {
+	color: #00C300;
+	text-decoration: none;
+	font-weight: bold;
 }

@@ -126,24 +126,26 @@
 			<li>option의 기본값과 자세한 설정은 아래를 참고하시기 바랍니다.</li>
 		</ul>
 		<table>
-		<tr><th>option</th><th>설명</th><th>기본값 및 가능값</th></tr>
-		<tr><th>charset</th><td>전송시 사용할 charset (준비중)</td><td>""</td></tr>
-		<tr><th>content</th><td>data의 전송 (준비중)</td><td>""</td></tr>
-		<tr><th>contentType</th><td>전송시 사용할 content-type (준비중)</td><td>""</td></tr>
-		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>객체</td></tr>
-		<tr><th>format</th><td>최종 결과(data.content)의 형식에 대한 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td></tr>
-		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>""</td></tr>
-		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td>"utf-8, euc-kr, iso-8859-1"</td></tr>
-		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>객체</td></tr>
-		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post"</td></tr>
-		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>""</td></tr>
-		<tr><th>referer</th><td>referer 설정 </td><td>""</td></tr>
-		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> <u>"0"</u> | "1" </td></tr>
-		<tr><th>table</th><td> open data table의 지정</td><td>"http://kincrew.github.com/xReader/xReader.xml"</td></tr>
-		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>DOM 요소</td></tr>
-		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td> <u>false</u> | true </td></tr>
-		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td>10000 (10초)</td></tr>
-		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> <u>미설정</u> | "current" | "사용자 설정"</td></tr>
+		<tr><th>option</th><th>설명</th><th>기본값 및 가능값 </th><th>형식</th></tr>
+		<tr><th>charset</th><td>전송시 사용할 charset (준비중)</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>content</th><td>data의 전송 (준비중)</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>contentType</th><td>전송시 사용할 content-type (준비중)</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>undefined</td><td>객체</td></tr>
+		<tr><th>css</th><td>출력 대상의 css selector 형식으로 선택</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>format</th><td>최종 결과(data.content)의 형식에 대한 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td><td>문자열</td></tr>
+		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td><u>"utf-8, euc-kr, iso-8859-1"</u></td><td>문자열</td></tr>
+		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>undefined</td><td>객체</td></tr>
+		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post"</td><td>문자열</td></tr>
+		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>referer</th><td>referer 설정 </td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> <u>false</u> | true </td><td>문자열</td></tr>
+		<tr><th>table</th><td> open data table의 지정</td><td><u>"http://kincrew.github.com/xReader/yql/xReader.xml"</u></td><td>문자열</td></tr>
+		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>undefined</td><td>DOM 객체</td></tr>
+		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td> <u>false</u> | true </td><td>Boolean</td></tr>
+		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td><u>10000</u></td><td>숫자</td></tr>
+		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> <u>undefined</u> | "current" | "사용자 설정"</td><td>문자열</td></tr>
+		<tr><th>xpath</th><td>출력 대상의 xpath 형식으로 선택</td><td>undefined</td><td>문자열</td></tr>
 		</table>
 		<ul>
 			<li>callback및 error 함수에서 전달받은 option인자에 유용한 추가적 프로퍼티가 있습니다. <br/>
@@ -151,7 +153,8 @@
 			</li>
 			<li>
 				tidy 옵션은 특히 xml 문서의 요소를 객체로 직접 받아 사용할 경우 상당히 유용합니다. <br/>
-				그러나 적절히 escape되지 않은 문서인 경우 오류가능성이 있기에 미리 충분한 확인히 필요합니다.
+				그러나 적절히 escape되지 않은 경우, 오류가능성이 있기에 미리 충분한 확인히 필요합니다.<br/>
+				또 css 및 xpath 옵션을 사용한 경우, 내부적으로 tidy가 처리되기에 오류 가능성이 있습니다.
 			</li>
 			<li>timeout은 xReader.timeout으로 전체 설정할 수 있습니다.</li>
 			<li>아직 충분히 테스트되지 못한 옵션 및 향후 변경 가능성도 있습니다.</li>

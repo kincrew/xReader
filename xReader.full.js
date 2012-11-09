@@ -51,6 +51,7 @@ g.xReader = function() {
 				break;
 		}
 	}
+	option.format = option.format || "string";  
 	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/yql/xReader.xml";
 	option.ua     = (option.ua == "current") ? navigator.userAgent : option.ua;
 	option.status = "init";
@@ -133,7 +134,7 @@ var excute = function(data, option) {
 	var content = (option.problem) ? undefined : data && data.content;
 	option.status = (option.problem) ?  "error" : "finish"; 
 
-	if (content && option.format) {
+	if (content && !option.tidy) {
 		try {
 			switch (option.format) {
 				case "json" :
