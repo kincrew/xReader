@@ -55,12 +55,12 @@ g.xReader = function() {
 	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/yql/xReader.xml";
 	option.ua     = (option.ua == "current") ? navigator.userAgent : option.ua;
 	option.status = "init";
-	g[option.id]  = function(data) {
+	g.xReader[option.id]  = function(data) {
 		option.result = data;
 		if (option.problem) data.error = option.problem;
 		if (data.error) option.problem = data.error;
 		excute(data, option);
-		remove(option.id);
+		delete xReader[option.id];
 	}
 	YQL(option);
 	option.timerId = setTimeout(function(){
@@ -117,8 +117,9 @@ if (window.JSON) oJSON.ecma5 = true;
 
 var YQL = function(option){
 	var script = option.script = document.createElement('script');
-	var src = "query.yahooapis.com/v1/public/yql?q=" + query(option, true) + "&format=json&callback="+ option.id;
-	if (option.format == "json" || option.format == "jsonp") src+="&jsonCompat=new";
+	var src = "query.yahooapis.com/v1/public/yql?q=" + query(option, true) + "&format=json&callback=xReader."+ option.id;
+	if (option.format == "json") src+="&jsonCompat=new";
+	if (option.diagnostics) src+="&diagnostics=true";
 	src = (option.ssl) ? "http://" + src : "https://" + src;
 	script.setAttribute("charset", "utf-8");
 	script.setAttribute("type", "text/javascript");
@@ -133,6 +134,10 @@ var excute = function(data, option) {
 	var data    = (option.problem) ? undefined : data.query.results && data.query.results.resources;
 	var content = (option.problem) ? undefined : data && data.content;
 	option.status = (option.problem) ?  "error" : "finish"; 
+
+	if (option.diagnostics) {
+		option.debug = (data.query && data.query.diagnostics) || (data.error && data.error.diagnostics) ;
+	}
 
 	if (content && !option.tidy) {
 		try {
@@ -183,10 +188,6 @@ var appendDom = function(target, child) {
 var clear = function(option) {
 	if (option.timerId) clearTimeout(option.timerId);
 	headElement.removeChild(option.script);
-}
-
-var remove = function(id) {
-	try {delete window[id]} catch (err){window[id]=undefined}
 }
 
 })(window);

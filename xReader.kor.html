@@ -15,7 +15,7 @@
 	<div id="header_wrap" class="outer">
 		<div class="inner">
 		  <a id="forkme_banner" href="https://github.com/kincrew/xReader">View on GitHub</a>
-		  <h1 id="project_title">xReader v0.0.76a [DEMO]</h1>
+		  <h1 id="project_title">xReader v0.0.77a [DEMO]</h1>
 		  <h2 id="project_tagline">자유로운 리소스 접근의 최후 해결책</h2>
 		</div>
 	</div>
@@ -25,7 +25,7 @@
 		<h3>xReader 소개</h3>
 		<p>xReader는 자바스크립트상의 외부의 다른 텍스트 형식 컨텐츠를 제약없이 자유롭게 불러오게 만들어진 함수입니다. </p>
 		<ul>
-			<li>버전 : v0.0.76a - 2012-11-04</li>
+			<li>버전 : v0.0.77a - 2012-11-04</li>
 			<li>라이선스 : <a href="http://ko.wikipedia.org/wiki/MIT_%ED%97%88%EA%B0%80%EC%84%9C" target="_blank">MIT 허가서</a></li>
 			<li>소스   <br/>
 					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원 일반 버전 <br/>
@@ -122,8 +122,6 @@
 		<ul>
 			<li>생략 가능하고 객체 형식이어야 합니다.</li>
 			<li class="rd">option은 xReader.full.js에서만 지원됩니다.</li>
-			<li>option 사용시 다양하며 간편한 사용이 될 수 있습니다.</li>
-			<li>option의 기본값과 자세한 설정은 아래를 참고하시기 바랍니다.</li>
 		</ul>
 		<table>
 		<tr><th>option</th><th>설명</th><th>기본값 및 가능값 </th><th>형식</th></tr>
@@ -132,12 +130,14 @@
 		<tr><th>contentType</th><td>전송시 사용할 content-type (준비중)</td><td>undefined</td><td>문자열</td></tr>
 		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>undefined</td><td>객체</td></tr>
 		<tr><th>css</th><td>출력 대상의 css selector 형식으로 선택</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>diagnostics</th><td>YQL 진단 검사 (option.debug에서 확인)</td><td> <u>false</u> | true</td><td>Boolean</td></tr>
 		<tr><th>format</th><td>최종 결과(data.content)의 형식에 대한 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td><td>문자열</td></tr>
 		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>undefined</td><td>문자열</td></tr>
 		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td><u>"utf-8, euc-kr, iso-8859-1"</u></td><td>문자열</td></tr>
 		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>undefined</td><td>객체</td></tr>
-		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post"</td><td>문자열</td></tr>
+		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post" | "head" | "put"</td><td>문자열</td></tr>
 		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>param</th><td>url의 추가 param의 사용</td><td>undefined</td><td>객체</td></tr>
 		<tr><th>referer</th><td>referer 설정 </td><td>undefined</td><td>문자열</td></tr>
 		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> <u>false</u> | true </td><td>문자열</td></tr>
 		<tr><th>table</th><td> open data table의 지정</td><td><u>"http://kincrew.github.com/xReader/yql/xReader.xml"</u></td><td>문자열</td></tr>
@@ -226,7 +226,13 @@
 		
 		<h3>HISTORY </h3>
 		<ul>
-			<li>2012-11-06 <br/>
+			<li>2012-11-10 : v0.0.77a <br/>
+				&nbsp; (오전) callback 전역 > xReader 메서드로 변경<br/>
+				&nbsp; (오전) headers 반환 Fix<br/>
+				&nbsp; (오전) option.method 확장<br/>
+				&nbsp; (오전) option.diagnostics 추가 - option.debug에서 결과 반환<br/>
+				&nbsp; (오전) xReader.xml v0.0.4 - HTTP 객체 형식 헤더 처리 변경 (JSON 프로퍼티 객체) <br/>
+			<li>2012-11-06 : v0.0.76a <br/>
 				&nbsp; (오전) format에 따르는 차이 없이 data 인자 반환 (기존 일부 format에서 header 생략의 방지 필요) <br/>
 				&nbsp; (오전) option 추가 (charset, fallbackCharset, xpath 적용)<br/>
 				&nbsp; (오전) option.format에서 json 제거 (jsonp 자동 인식)<br/>

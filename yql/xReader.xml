@@ -17,7 +17,7 @@
 				<key id="contenttype"     type="xs:string" paramType="variable" required="false"/>
 				<key id="cookie"          type="xs:string" paramType="variable" required="false"/>
 				<key id="css"             type="xs:string" paramType="variable" required="false"/>
-				<key id="fallbackCharset" type="xs:string" paramType="variable" required="false"/>
+				<key id="fallbackCharset" type="xs:string" paramType="variable" required="false" default="utf-8, euc-kr, iso-8859-1"/>
 				<key id="forceCharset"    type="xs:string" paramType="variable" required="false"/>
 				<key id="headers"         type="xs:string" paramType="variable" required="false"/>
 				<key id="method"          type="xs:string" paramType="variable" required="false"/>
@@ -33,14 +33,36 @@
                 <![CDATA[
 					var location, 
 						JSON,
-						version = "0.0.3",
-						method = method || "get",
-						reTagCase = /(^|\-)(\w)/g,
-						tagCase = function (a, b, c) { return b + c.toUpperCase();}
+						version = "0.0.4",
+						method  = method || "get",
+						hdCase  = function(s) {return s.replace(/(^|\-)(\w)/g, function(a,b,c) { return b+c.toUpperCase()})};
+						isArray = function(o) {return Object.prototype.toString.call(o) == "[object Array]"}
 					;
 
+					var headerToXML = function(object) {					
+						var headers = <headers></headers>;
+						var tag;
+						for (var header in object) {
+							tag = hdCase(header);
+							var headerValue = object[header];
+							if (typeof headerValue == "object") {
+								if (isArray(headerValue)) {
+									for (var i=0 ; i < headerValue.length ; i++) {
+										headers.headers += <{tag}>{headerValue[i]}</{tag}>;
+									}
+								} else {								
+									var _tag = <{tag}/>;
+									for (var i in headerValue) _tag += <{i}>{headerValue[i]}</{i}>;
+									headers.headers += _tag;
+								}
+							}
+							else headers.headers += <{tag}>{headerValue}</{tag}>;
+						}
+						return headers;
+					}
+
 					// PREPARING REQUEST
-					url = (url.indexOf("http://")&&url.indexOf("https://")) ? ("http://" + url) : url;
+					url = /^http[s]?:\/\//.test(url) ? url : "http://" + url;
 					var request = y.rest(url);
 					request.header('Accept-Encoding', 'gzip,deflate');
 					request.decompress(true);
@@ -49,17 +71,14 @@
 					if (authorization) request.header('Authorization', authorization);
 					if (contenttype) request.contentType(contenttype); 
 					if (cookie) request.header('Cookie', cookie);
-					if (forceCharset) request.forceCharset(fallbackCharset);
-					if (fallbackCharset) request.fallbackCharset(fallbackCharset);
-					else request.fallbackCharset("utf-8, euc-kr, iso-8859-1");	
+					if (forceCharset) request.forceCharset(forceCharset);
+					else request.fallbackCharset(fallbackCharset);
 					if (headers) {
-						if (!JSON) y.include('http://www.datatables.org/javascript/json2.js');
-						var headers = JSON.parse(headers);
+						var headers = y.xparseJson(headers);
 						for (var key in headers) request.header(key, headers[key]);
 					}
 					if (param) {
-						if (!JSON) y.include('http://www.datatables.org/javascript/json2.js');
-						var param = JSON.parse(param);
+						var param = y.xparseJson(param);
 						for (var key in param) request.query(key, param[key]);
 					}
 					if (referer) request.header('Referer', referer);
@@ -67,8 +86,10 @@
 					
 					// SENDING HTTP REQUEST
 					var resp ;
-					if (method == "get") resp = request.get();
-					else resp = (content) ? request.post(content) : request.post();
+					if (method == "get")       resp = request.get();
+					else if (method == "post") resp = request.post(content);
+					else if (method == "put")  resp = request.put(content);
+					else if (method == "head") resp = request.head();
 
 					// RECIEVING DATA
 					y.log('response length: ' + (resp.response && resp.response.length));
@@ -93,23 +114,12 @@
 							}
 						}
 					}
-					// response headers
-					var headers = <headers/>;
-					var tag;
-					for (header in resp.headers) {
-						var headerValue = resp.headers[header];
-						if (typeof headerValue == "object") {							
-							if (!JSON) y.include('http://www.datatables.org/javascript/json2.js');
-							headerValue = JSON.stringify(headerValue);
-						} 
-						tag = header.replace(reTagCase, tagCase);
-						headers.headers += <{tag}>{headerValue}</{tag}>;
-					}
+
 					// set result
 					data.resources += <version>{version}</version>;
 					data.resources += <url>{url}</url>;
 					data.resources += <status>{resp.status}</status>;
-					data.resources += headers;
+					data.resources += headerToXML(resp.headers);
 
 					// get uncompressed response content for non-binary
 					var header = resp.headers;
