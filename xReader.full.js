@@ -52,7 +52,7 @@ g.xReader = function() {
 		}
 	}
 	option.format = option.format || "string";  
-	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/yql/xReader.xml";
+	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/yql/xReader.v004.xml";
 	option.ua     = (option.ua == "current") ? navigator.userAgent : option.ua;
 	option.status = "init";
 	g.xReader[option.id]  = function(data) {

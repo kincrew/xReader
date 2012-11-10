@@ -31,7 +31,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 g.xReader = function(a,b,c,o) {
 	var t,i="_"+(new Date()).getTime()+m.floor(m.random()*100),e=d.getElementsByTagName('head')[0];
 	b=((typeof b=="function")&&((c&&(o=c)&&(c=b))||(c=b)))?z:b;
-	a='USE "'+h+'kincrew.github.com/xReader/yql/xReader.xml" AS x; SELECT * FROM x WHERE url="'+a+q;
+	a='USE "'+h+'kincrew.github.com/xReader/yql/xReader.v004.xml" AS x; SELECT * FROM x WHERE url="'+a+q;
 	xReader[i]=function(r){
 		clearTimeout(t);
 		(r.error)?o?o(r.error):c(r):c(r.query.results&&r.query.results.resources);
