@@ -56,7 +56,7 @@ body {
   color:#373737;
   background: #212121;
   font-size: 16px;
-  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, 'malgun gothic', 'dotum', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -172,10 +172,10 @@ table {
   text-align: left;
   font-size: 12px;
   width: 100%;
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
  }
 
 th {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 5px;
   font-weight: bold;
   background: #616161;
@@ -189,6 +189,7 @@ td {
   padding: 5px;
   background: #e7e7e7 !important;
   border: 1px solid #AEAEAE;
+  text-shadow: 1px 1px #FBFBFB
  }
 
 form {
@@ -432,3 +433,4 @@ table td u {
 	text-decoration: none;
 	font-weight: bold;
 }
+.lt {text-decoration:line-through}
