@@ -28,166 +28,257 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
-(function(g){
-
-var headElement = document.getElementsByTagName("head")[0];
-g.xReader = function() {
-	var option = {
-		id     :  "_" + (new Date()).getTime() + Math.floor(Math.random()*100)
+;(function(U,R,a,G,e,n,i,u,s) { // U'r a Genius ! 
+	a = {
+		version : "0.0.78a",
+		table   : "http://kincrew.github.com/xReader/xReader.xml?u=" + document.domain + "&v=0.0.5",
+		maxAge  : {
+		           id : s,    duration : s
+		},
+		setup   : ( 
+				"authorization charset cookie contentType css fallbackCharset foreceCharset" + 
+				"format headers method param referer tidy timeout type xpath"
+		).split(' ')
 	}
-	for (var i=0; i < arguments.length; i++) {
-		var argument = arguments[i];
-		switch (typeof argument) {
-			case "string" :
-				if (option.url) option.css = argument;
-				else option.url = argument;
-				break;
-			case "function" :
-				if (option.callback) option.error = argument;
-				else option.callback = argument;
-				break;
-			case "object" :
-				for (var i in argument) option[i] = argument[i];
-				break;
+	var cache = {};
+	U.xReader = function() {
+
+		/* INIT : OPTION & RESULT */
+		var r = result = {
+			id       : nonce("_"), source   : s,
+			url      : s,          headers  : s,
+			content  : s,          type     : s,
+			format   : "text",
+			YQL      : {
+					   query   : s,             source  : s,
+					   table   : a.table,       link    : s,
+					   version : s
+			},
+			xReader  : {
+					   version   : a.version
+			},
+			original : s,          error    : s,
+			option   : {},         status   : s,
+			phase    : "init",     state    : "init"
+		}
+
+		var o = r.option = {
+			cacheBurst : false,    url     : s, 
+			query      : "",       table   : s,
+			source     : "",       ssl     : false,
+			callback   : s,        format  : "text",
+			link       : "auto"
+		}
+
+		/* SET : OPTION BY ARGUMENTS */	
+		for (var i=0; i < arguments.length; i++) {
+			var argument = arguments[i], type = typeof argument;
+			(type == "string")   ? o.url && (o.css = argument) || (o.url = url = argument) :
+			(type == "function") ? o.callback = argument :
+			(type == "object")   ? eval("for(var i in argument) o[i] = argument[i]") : s ;
+		}
+		o.ua         = (o.ua == "current") && navigator.userAgent || s;
+		r.source     = o.url;
+		if (o.cacheBurst) {
+			o.cacheBurst = Boolean(o.cacheBurst);
+			o.url += ((o.url.indexOf("?") > -1) ? "&" : "?")  + "rand=" + r.id;
+		}
+		r.YQL.table  = o.table || r.YQL.table;
+		if (o.maxAgeGlobal == "reset" || o.maxAgeGlobal || (!a.maxAge.id) && o.maxAge) {
+			cache = {};
+			a.maxAge.id  = r.id;
+			if (o.maxAgeGlobal) a.maxAge.duration = o.maxAgeGlobal;
+			if (o.maxAgeGlobal == "reset") a.maxAge.duration = s;
+			a.table = r.YQL.table = (r.YQL.table).split("&m=")[0] += "&m=" + a.maxAge.id;
+		}
+		if (o.maxAge) cache[o.url] = o.maxAge
+		r.maxAge     =  cache[o.url] || o.maxAge || a.maxAge.duration;
+		r.phase      = "set option";
+
+		/* PREPARE : QUERY, SOURCE  */
+		r.YQL.query  = o.query   = YQL.query(r);
+		r.YQL.source = YQL.source(r);
+		r.phase      = "set query";
+
+		/* PREPARE : CALLBACK FUNCTION  */
+		var AJAX, SCRIPT;
+		r.excute = U.xReader[r.id] = function(data, error) {		
+			clearTimeout(timerId);
+			if (SCRIPT) R.removeChild(SCRIPT);
+			delete xReader[r.id];
+			if (AJAX) AJAX.abort();
+			r.original = data && (data.query || data.error && data) || undefined ; 
+			r.error    = error || data.error;
+			excute(r);
+		}
+		r.phase = "prepare function";
+
+		var timerId = setTimeout(function() {
+			U.xReader[r.id](s, {lang:"en-US", description : "[ERROR] Timeout"});
+		}, o.timeout || xReader.timeout || 10000);
+
+		/* CONNECT & LOAD : YQL SERVER  */
+		if (o.link == "auto") {
+			AJAX = YQL.AJAX(r);
+			if (!AJAX) o.script = YQL.SCRIPT(r);
+		} 
+		else if (o.link == "script") SCRIPT = YQL.SCRIPT(r);
+		else  AJAX = YQL.AJAX(r);
+		r.phase = "loading";
+	}
+
+	/*  YQL UTILS BY OPTION : 2012-11-13, SD05 */
+	var YQL = {
+		query   : function(r) {
+			var o = r.option;
+			var statement = (r.YQL.table) ? "USE '" + r.YQL.table + "' AS xReader;" : "";
+			if (o.query) return statement + query;
+			statement += "SELECT * FROM xReader WHERE url='" + o.url + "'";
+			var OPT = a.setup;
+			for (var i=0; i < OPT.length; i++)
+			var key = OPT[i], 
+				value = o[key], 
+				value = (typeof value == "object") ? oJSON(value) : value,
+				statement = statement + (value && (" AND " +  key + "='" + value + "'") || "");
+			return statement;
+		},
+		source  : function(r) {
+			var o = r.option;
+			var _source = (o.ssl) ? "https://" :  "http://" ;
+			_source += "query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(o.query) + "&format=json";
+			if (o.diagnostics) _source += "&diagnostics=true";
+			if (o.format == "json") _source +="&jsonCompat=new";
+			if (r.maxAge) _source +="&_maxage=" + r.maxAge;
+			return _source;
+		},
+		AJAX   : function(r) {
+			var o = r.option;
+			if(!window.XMLHttpRequest) return s;
+			var AJAX = new XMLHttpRequest();
+			if("withCredentials" in AJAX) r.YQL.link = "XHR"; 
+			else if (XDomainRequest) {
+				AJAX = new XDomainRequest();
+				r.YQL.link = "XDR";
+			} else return s;
+			AJAX.open("get", r.YQL.source);
+			AJAX.onload  = function() {
+				if (AJAX.getAllResponseHeaders) r.YQL.headers = AJAX.getAllResponseHeaders();
+			   r.excute(oJSON(AJAX.responseText));
+			}
+			AJAX.onerror = function() {
+			   r.excute(s, {lang:"en-US", description : "[ERROR] xReader can't connect YQL by AJAX."});
+			}
+			AJAX.send();
+			return AJAX;
+		},
+		SCRIPT : function(r) {
+			r.YQL.link = "JSONP";
+			var html = '<html><head>'+
+				'<script tye="text/javascript">'+
+					'ex = parent.xReader["' + r.id + '"];' +
+					'onerror= function(){ex(' + s + ',{lang:"en-US", description : "[ERROR] YQL ParseError"});}' + 
+				'</script>' + '</head><body></body></html>';
+			var f = document.createElement('iframe');
+			f.style.cssText = "display:block";    f.setAttribute("src", "about:blank");
+			R.appendChild(f);
+			f.contentWindow.document.write(html); f.contentWindow.document.close();
+			var s = f.contentWindow.document.createElement('script');
+			r.YQL.source += "&callback=ex";
+			s.setAttribute("charset", "utf-8");   s.setAttribute("type", "text/javascript");
+			s.setAttribute("src", r.YQL.source);
+			s.onerror = function() {
+			   r.excute(s, {lang:"en-US", description : "[ERROR] xReader can't connect YQL by script."});
+			}
+			f.contentWindow.document.body.appendChild(s);
+			return f;
 		}
 	}
-	option.format = option.format || "string";  
-	option.table  = (option.table === false) ? "" : option.table || "http://kincrew.github.com/xReader/yql/xReader.v004.xml";
-	option.ua     = (option.ua == "current") ? navigator.userAgent : option.ua;
-	option.status = "init";
-	g.xReader[option.id]  = function(data) {
-		option.result = data;
-		if (option.problem) data.error = option.problem;
-		if (data.error) option.problem = data.error;
-		excute(data, option);
-		delete xReader[option.id];
-	}
-	YQL(option);
-	option.timerId = setTimeout(function(){
-		option.status = "error";
-		option.result = option.problem = {lang:"en-US", description:"timeout"};
-		excute(option.problem, option);
-	}, option.timeout || xReader.timeout || 10000); //option.timeout || xReader.timeout 
-}
-var query = function(option, encode) {
-	var statement = "";
-	statement = (option.table) ? "USE '" + option.table + "' AS xReader;" : "";
-	if (option.query) {
-		statement = option.query + statement;
-		return option.statement = (encode) ? encodeURIComponent(statement) : statement;
-	}
-	statement += option.query || "SELECT * FROM xReader WHERE url='" + option.url + "'";
-	if (option.authorization)   statement += " AND authorization='" + option.authorization + "'";
-	if (option.charset)         statement += " AND charset='" + option.charset + "'";
-	if (option.cookie)          statement += " AND cookie='" + oJSON(option.cookie) + "'";
-	if (option.content)         statement += ' AND content="' + option.content + '"';
-	if (option.contentType)     statement += ' AND contentType="' + option.contentType + '"';
-	if (option.css)             statement += " AND css='" + option.css + "'";
-	if (option.fallbackCharset) statement += ' AND fallbackCharset="' + option.fallbackCharset + '"';
-	if (option.foreceCharset)   statement += ' AND foreceCharset="' + option.foreceCharset + '"';
-	if (option.headers)         statement += " AND headers='" + oJSON(option.headers) + "'";
-	if (option.method)          statement += " AND method='" + option.method + "'";
-	if (option.param)           statement += " AND param='" + oJSON(option.param) + "'";
-	if (option.referer)         statement += " AND referer='" + option.referer + "'";
-	if (option.tidy)            statement += " AND tidy='1'";
-	if (option.timeout)         statement += ' AND timeout="' + option.timeout + '"';
-	if (option.type)            statement += " AND type='" + option.type + "'";
-	if (option.ua)              statement += " AND ua='" + option.ua + "'";
-	if (option.xpath)           statement += ' AND xpath="' + option.xpath + '"';
-	option.query = statement;
-	return option.statement = (encode) ? encodeURIComponent(statement) : statement;
-}
-
-/* oJSON */
-var oJSON = function(target) {
-	if (typeof target != "string") {
-		if (oJSON.ecma5) return JSON.stringify(target);
-		var result = '', check;
-		for (var key in target) {
-			if (!check) check = true;
-			else result += ',';
-			result += '"'+key+ '" : "' + target[key] +  '" ';
+	/* local utils */
+	var excute = function(r) {
+		var o            = r.option;
+		var source       = r.original;
+		var resource     = (source && source.results && source.results.resources) || s;
+		var content      = r.content = (resource && resource.content) || s;
+		if (o.diagnostics) {
+			r.diagnostics = source.diagnostics || (data.error && data.error.diagnostics) ;
 		}
-		return '{ ' + result + ' }';
-	} else {
-		return (oJSON.ecma5) ? JSON.parse(target) : eval('('+target+')');
-	}
-};
-if (window.JSON) oJSON.ecma5 = true;
-
-var YQL = function(option){
-	var script = option.script = document.createElement('script');
-	var src = "query.yahooapis.com/v1/public/yql?q=" + query(option, true) + "&format=json&callback=xReader."+ option.id;
-	if (option.format == "json") src+="&jsonCompat=new";
-	if (option.diagnostics) src+="&diagnostics=true";
-	src = (option.ssl) ? "http://" + src : "https://" + src;
-	script.setAttribute("charset", "utf-8");
-	script.setAttribute("type", "text/javascript");
-	script.setAttribute("id", "xR" + option.id);
-	script.setAttribute("src", src);
-	headElement.appendChild(script);
-}
-
-var excute = function(data, option) {
-	clear(option);
-	var cbData, callback;
-	var data    = (option.problem) ? undefined : data.query.results && data.query.results.resources;
-	var content = (option.problem) ? undefined : data && data.content;
-	option.status = (option.problem) ?  "error" : "finish"; 
-
-	if (option.diagnostics) {
-		option.debug = (data.query && data.query.diagnostics) || (data.error && data.error.diagnostics) ;
-	}
-
-	if (content && !option.tidy) {
-		try {
-			switch (option.format) {
-				case "json" :
-					if (!(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(content.replace(/"(\\.|[^"\\])*"/g, '')))) {
-						data.content = oJSON(content);
-					}
-					else {
-						content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
-						data.content  = eval('('+content+')');
-						option.format = "jsonp"; 
-					}
-					break;
-				case "dom"  :
-					data.content = strToDom(content);
-					break;
-				case "dom2" :
-					data.content = strToDom(content, true);
-					break;
-				default :
-					option.format = "string";
-					data.content  = content;
-					break;
-			}			
-		} catch (err) {
-			option.status = "error";
-			data.error = option.problem = {lang:"en-US", description:"parse error" };
+		if (resource) {
+			r.url         = resource.url;
+			r.YQL.version = resource.version;
+			r.headers     = resource.headers;
+			r.time        = (r.headers && r.headers.Date && new Date(r.headers.Date))
+							|| (source && source.created && fromISOString(source.created)) || s;
+			r.redirect    = resource.redirect;
+			r.status      = resource.status;
 		}
+		if (content && !o.tidy) {
+			try {
+				switch (o.format) {
+					case "json" :
+						if (!(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(content.replace(/"(\\.|[^"\\])*"/g, '')))) {
+							r.content = oJSON(content);
+						} else {
+							content = content.substring(content.indexOf("(")+1, content.lastIndexOf(")"));
+							r.content  = eval('('+content+')');
+						}
+						break;
+					case "dom"  :
+						r.content = strToDom(content);
+						break;
+					case "dom2" :
+						r.content = strToDom(content, true);
+						break;
+					default :
+						r.content  = content;
+						break;
+				}			
+			} catch (err) {
+				r.state = "error";
+				r.error = {lang:"en-US", description:"[ERROR] CONVERT-ERROR"};
+			}
+		}
+		r.format = o.format;
+		r.phase  = (r.error && r.phase) || "complete";
+		r.state  = (r.error && "error") || "complete";
+
+		var cbReturn = o.callback(r);
+		if (cbReturn && o.target) appendDom(o.target, cbReturn);
 	}
-	callback = (option.problem&&option.error) ? option.error : option.callback;
-	cbReturn = callback(data, option);
-	if (cbReturn && option.target) appendDom(option.target, cbReturn);
-}
-
-var strToDom = function(str, type) {
-	var container = document.createElement("div");
-	container.innerHTML = str;
-	return (type) ? container.childNodes : container.children ; 
-}
-
-var appendDom = function(target, child) {
-	if (typeof child == "string") target.innerHTML = child;
-	else target.parentNode.replaceChild(child, target);
-	return target;
-}
-
-var clear = function(option) {
-	if (option.timerId) clearTimeout(option.timerId);
-	headElement.removeChild(option.script);
-}
-
-})(window);
+	var oJSON = function(target) {
+		if (typeof target != "string") {
+			if (oJSON.ecma5) return JSON.stringify(target);
+			var result = [];
+			for (var key in target) result.push('"'+key+ '" : "' + target[key] +  '" ');
+			return '{ ' + result.join(",") + ' }';
+		} else return (oJSON.ecma5) ? JSON.parse(target) : eval('('+target+')');
+	}
+	if (U.JSON) oJSON.ecma5 = true;
+	var strToDom = function(str, type) {
+		var container = document.createElement("div");
+		container.innerHTML = str;
+		return (type) ? container.childNodes : container.children ; 
+	}
+	var appendDom = function(target, child) {
+		if (typeof child == "string") target.innerHTML = child;
+		else target.parentNode.replaceChild(child, target);
+		return target;
+	}
+	var nonce = function(str) {
+		return (str || "") + (new Date()).getTime() + Math.floor(Math.random()*100);
+	}
+	var fromISOString = function(str) {
+		if (Date.prototype.toISOString) return new Date(str);
+		var _EXP = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
+			"(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
+		var d = str.match(new RegExp(_EXP));
+		var offset = 0;
+		var date = new Date(d[1], 0, 1);
+		d[3]  && date.setMonth(d[3]-1);  d[5]  && date.setDate(d[5]);
+		d[7]  && date.setHours(d[7]);    d[8]  && date.setMinutes(d[8]);
+		d[10] && date.setSeconds(d[10]); d[12] && date.setMilliseconds(Number("0." + d[12]) * 1000);
+		d[14] && (offset = ((Number(d[16]) * 60) + Number(d[17])) * ((d[15] == '-') ? 1 : -1));
+		date.setTime(Number(date)+(offset - date.getTimezoneOffset())*60*1000); 
+		return date;
+	}
+	xReader.maxAge = a.maxAge;
+})(window, document.getElementsByTagName("head")[0], undefined);

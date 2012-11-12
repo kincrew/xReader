@@ -15,17 +15,17 @@
 	<div id="header_wrap" class="outer">
 		<div class="inner">
 		  <a id="forkme_banner" href="https://github.com/kincrew/xReader">View on GitHub</a>
-		  <h1 id="project_title">xReader v0.0.77a [DEMO]</h1>
+		  <h1 id="project_title">xReader v0.0.78a [DEMO]</h1>
 		  <h2 id="project_tagline">자유로운 리소스 접근의 최후 해결책</h2>
 		</div>
 	</div>
 	<!-- MAIN CONTENT -->
 	<div id="main_content_wrap" class="outer">
 	  <div id="main_content" class="inner">
-		<h3>xReader 소개</h3>
+		<h2>xReader 소개</h2>
 		<p>xReader는 자바스크립트상의 외부의 다른 텍스트 형식 컨텐츠를 제약없이 자유롭게 불러오게 만들어진 함수입니다. </p>
 		<ul>
-			<li>버전 : v0.0.77a - 2012-11-04</li>
+			<li>버전 : v0.0.78a - 2012-11-13</li>
 			<li>라이선스 : <a href="http://ko.wikipedia.org/wiki/MIT_%ED%97%88%EA%B0%80%EC%84%9C" target="_blank">MIT 허가서</a></li>
 			<li>소스   <br/>
 					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원 일반 버전 <br/>
@@ -33,7 +33,7 @@
 					<a href="yql/xReader.xml" target="_blank">xReader.xml</a> - YQL에서 사용하는 open data table</li>
 			<li>만든이 : <a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (블로그)</a>, <a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a></li>
 		</ul>
-		<h3 style="font-style:italic;color:#FF0000;">제한 철폐!</h3>
+		<h5 style="font-style:italic;color:#FF0000;">제한 철폐!</h5>
 		<p><img src="images/baby.jpg" style="float:right;width:200px;margin-top:-15px;"/>
 			타 리소스를 접근 제약으로 지독히 고생중입니까? 최후의 만능 해결 방법이 바로 여기에 있습니다.
 		</p>
@@ -45,7 +45,7 @@
 		</ul>
 		<p> 아주 간단한 xReader를 사용하면서 바로 위의 제약을 해결할 수 있습니다!</p>
 
-		<h3>xReader 사용방법</h3>
+		<h5>xReader 사용방법</h5>
 
 		<div class="exCode">
 			<span class="gr">&lt;script <span class="or">src</span>=<span class="rd">"http://kincrew.github.com/xReader/xReader.full.js"</span>>&lt;/script></span> <br/>
@@ -60,7 +60,7 @@
 			<a href="http://kincrew.github.com/xReader/xReader.full.js" target="_blank">xReader.full.js</a>만 다운받아 사용하시면 됩니다.
 		</p>
 
-		<h3>xReader 특징</h3>
+		<h5>xReader 특징</h5>
 		<p>xReader는 구형 IE5.5부터 최근의 대부분 브라우저를 지원하며, 자동적으로 charset의 인식과 redirect 부분까지 처리하고 있습니다.</p>
 		<ul>
 			<li>거의 모든 브라우저 지원 : IE5.5~, Safari, Chrome, Firefox, Opera, Netscape Navigator9 테스트</li>
@@ -70,26 +70,25 @@
 			<li>html, xml, json, jsonp 등 다양한 텍스트형식 컨텐츠 지원</li>
 		</ul>
 
-		<h3>xReader API</h3>
+		<h2>xReader API</h2>
 		<div class="exCode">
-			xReader(<span class="rd">"URL"</span>, <span class="gr">"CSS"</span>, <span class="rd">callback</span>, <span class="gr">error</span>, <span class="gr"><i>option</i></span>)<br/>
+			xReader(<span class="rd">"URL"</span>, <span class="gr">"CSS"</span>, <span class="rd">callback</span>, <span class="gr"><i>option</i></span>)<br/>
 		</div>
-		<h5> URL </h5>
+		<h5> • [string] URL </h5>
 		<ul>
 			<li>필수 인자이고 문자열 형식이어야 하며, "http://"는 생략가능합니다. </li>
 			<li>URL은 리소스 대상의 위치를 말합니다. </li>
 		</ul>
-		<h5> CSS </h5>
+		<h5> • [string] CSS </h5>
 		<ul>
 			<li>생략 가능하고 문자열 형식이어야 합니다.</li>
 			<li>CSS는 CSS 선택자로 해당 리소스의 대상을 제한할 수 있습니다.</li>
 			<li>일부 페이지에서 오류 가능성이 있기에 미리 충분히 검토를 해야합니다. </li>
 		</ul>
-		<h5> callback 함수 (data, option)</h5>
+		<h5> • [function] callback(data, option)</h5>
 		<ul>
 			<li>필수 인자이고 함수 형식이어야 합니다. </li>
 			<li>callback 함수는 해당 컨텐츠의 로딩이 완료된 후 실행되는 함수입니다.</li>
-			<li>한편 error 함수 미존재시 callback 함수가 대신 실행됩니다.</li>
 			<li>callback 함수 실행시 인자(객체)중 첫번째 data는 다음과 같이 구성됩니다.</li>
 		</ul>			
 		<div style="margin-top:8px;padding:5px 15px;background:#fff;border:5px solid #ddd; font: 14px/18px 'courier new', monospace">
@@ -105,47 +104,38 @@
 			&nbsp; &nbsp; content : "컨텐츠" <br/>
 			}<br/>
 		</div>
-		<h5> error 함수 (data, option)</h5>
-		<ul>
-			<li>생략 가능하고 함수 형식이어야 합니다. (생략시 callback 함수가 실행됩니다.)</li>
-			<li>error 함수는 해당 컨텐츠의 로딩에 문제가 있는 경우 실행되는 함수입니다.</li>
-			<li>error 함수에서 실행되는 인자(객체)는 다음과 같이 구성됩니다.</li>
-		</ul>			
-		<div style="margin-top:8px;padding:5px 15px;background:#fff;border:5px solid #ddd; font: 14px/18px 'courier new', monospace">
-			{<br/>
-			&nbsp; &nbsp; lang : "en-US", <span class="gr">// 언어</span> <br/>
-			&nbsp; &nbsp; description : "오류 내용" <br/>
-			}<br/>
-		</div>
-		<p class="fs rd"> [참고1] error의 발생여부 확인은 data.error의 존재나 option.status == "error"로 가능합니다.</p>
-		<h5> option </h5>
+		<h5> • [object] option </h5>
 		<ul>
 			<li>생략 가능하고 객체 형식이어야 합니다.</li>
 			<li class="rd">option은 xReader.full.js에서만 지원됩니다.</li>
 		</ul>
 		<table>
-		<tr><th>option</th><th>설명</th><th>기본값 및 가능값 </th><th>형식</th></tr>
-		<tr><th>charset</th><td>전송시 사용할 charset (준비중)</td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>content</th><td>data의 전송 (준비중)</td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>contentType</th><td>전송시 사용할 content-type (준비중)</td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>undefined</td><td>객체</td></tr>
-		<tr><th>css</th><td>출력 대상의 css selector 형식으로 선택</td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>diagnostics</th><td>YQL 진단 검사 (option.debug에서 확인)</td><td> <u>false</u> | true</td><td>Boolean</td></tr>
-		<tr><th>format</th><td>최종 결과(data.content)의 형식에 대한 처리</td><td> <u>"string"</u> | "json" | "dom" | "dom2" </td><td>문자열</td></tr>
-		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td><u>"utf-8, euc-kr, iso-8859-1"</u></td><td>문자열</td></tr>
-		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>undefined</td><td>객체</td></tr>
-		<tr><th>method</th><td>YQL에서 대상의 연결방식 </td><td><u>"get"</u> | "post" | "head" | "put"</td><td>문자열</td></tr>
-		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>param</th><td>url의 추가 param의 사용</td><td>undefined</td><td>객체</td></tr>
-		<tr><th>referer</th><td>referer 설정 </td><td>undefined</td><td>문자열</td></tr>
-		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> <u>false</u> | true </td><td>문자열</td></tr>
-		<tr><th>table</th><td> open data table의 지정</td><td><u>"http://kincrew.github.com/xReader/yql/xReader.xml"</u></td><td>문자열</td></tr>
-		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>undefined</td><td>DOM 객체</td></tr>
-		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td> <u>false</u> | true </td><td>Boolean</td></tr>
-		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td><u>10000</u></td><td>숫자</td></tr>
-		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> <u>undefined</u> | "current" | "사용자 설정"</td><td>문자열</td></tr>
-		<tr><th>xpath</th><td>출력 대상의 xpath 형식으로 선택</td><td>undefined</td><td>문자열</td></tr>
+		<tr><th>option</th><th>설명</th><th>기본값 및 가능값 </th></tr>
+		<tr><th>cacheBurst</th><td>캐쉬 미사용</td><td><u>false</u> | true </td></tr>
+		<tr><th>charset</th><td>전송시 사용할 charset (준비중)</td><td>undefined | [string] </td></tr>
+		<tr><th>content</th><td>data의 전송 (준비중)</td><td>undefined | [string] </td></tr>
+		<tr><th>contentType</th><td>전송시 사용할 content-type (준비중)</td><td>undefined | [string] </td></tr>
+		<tr><th>cookie</th><td>대상 http 요청시 사용 cookie </td><td>undefined | [object] </td></tr>
+		<tr><th>css</th><td>출력 대상의 css selector 형식으로 선택</td><td>undefined | [string] </td></tr>
+		<tr><th>diagnostics</th><td>YQL 진단 검사</td><td> <u>false</u> | true </td></tr>
+		<tr><th>format</th><td>최종 결과(data.content)의 형식에 대한 처리</td><td> <u>"text"</u> | "json" | "dom" | "dom2" </td></tr>
+		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>undefined | [string] </td></tr>
+		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td><u>"utf-8, euc-kr, iso-8859-1"</u> | [string]</td></tr>
+		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>undefined | [object] </td></tr>
+		<tr><th>link</th><td>xReader와 YQL의 연결 방식 </td><td><u>"auto"</u> | "ajax" | "script"</td></tr>
+		<tr><th>method</th><td>YQL과 대상의 연결 방식 </td><td><u>"get"</u> | "post" | "head" | "put"</td></tr>
+		<tr><th>maxAge</th><td>임의 시간내 캐쉬 우선 사용 (단위, 초)</td><td>undefined | [number] </td></tr>
+		<tr><th>maxAgeGlobal</th><td>임의 시간내 캐쉬 우선 전역 사용 (단위, 초)</td><td>undefined | [number] | "reset" </td></tr>
+		<tr><th>query</th><td>새로 사용할 YQL의 Query</td><td>undefined | [string] </td></tr>
+		<tr><th>param</th><td>url의 추가 param의 사용</td><td>undefined | [object] </td></tr>
+		<tr><th>referer</th><td>referer 설정 </td><td>undefined | [string] </td></tr>
+		<tr><th>ssl</th><td>xReader와 YQL의 SSL연결</td><td> <u>false</u> | true </td></tr>
+		<tr><th>table</th><td> open data table의 지정</td><td><u>"http://kincrew.github.com/.../xReader.xml"</u> | [string]</td></tr>
+		<tr><th>target</th><td>callback 반환값을 해당 DOM 요소에 출력</td><td>undefined | [object] </td></tr>
+		<tr><th>tidy</th><td>결과 반환시 element의 parse </td><td> <u>false</u> | true </td></tr>
+		<tr><th>timeout</th><td>타임아웃 시간(ms단위)</td><td><u>10000</u> | [number] </td></tr>
+		<tr><th>ua</th><td>ua 설정 ("current"사용시, 현재 ua 사용)</td><td> <u>undefined</u> | "current" | [string] </td></tr>
+		<tr><th>xpath</th><td>출력 대상의 xpath 형식으로 선택</td><td>undefined | [string] </td></tr>
 		</table>
 		<ul>
 			<li>callback및 error 함수에서 전달받은 option인자에 유용한 추가적 프로퍼티가 있습니다. <br/>
@@ -160,7 +150,7 @@
 			<li>아직 충분히 테스트되지 못한 옵션 및 향후 변경 가능성도 있습니다.</li>
 		</ul>
 
-		<h3>유용한 간단 예제들</h3>
+		<h2>유용한 간단 예제들</h2>
 
 		<h5>HTML</h5>
 		<div class="exCode">
@@ -226,6 +216,19 @@
 		
 		<h3>HISTORY </h3>
 		<ul>
+			<li>2012-11-13 : v0.0.78a <br/>
+				&nbsp; [xReader.demo.html] 문서 정리, update<br/>
+				&nbsp; [xReader.full.js] 콜백 반환 인자의 정리<br/>
+				&nbsp; [xReader.full.js] cacheBurst 기본 비활성 상태로 변경<br/>
+				&nbsp; [xReader.full.js] 호출 domain에 따른 테이블 차이 적용 (독자 캐시 사용)<br/>
+				&nbsp; [xReader.full.js] UPDATE 미반영 테이블 사용 문제 FIX<br/>
+				&nbsp; [xReader.full.js] maxAge 적용 <br/>
+				&nbsp; [xReader.full.js] maxAgeGlobal 적용 <br/>
+				&nbsp; [xReader.full.js] link 적용 (XHR, XDR, JSONP 적용)<br/>
+				&nbsp; [xReader.full.js] error 콜백의 제거, 반환인자에서 오류 검출<br/>
+				&nbsp; [xReader.full.js] 코드정리<br/>
+				&nbsp; [xReader.xml] 코드정리, maxAge 부분 제거<br/>
+			</li>
 			<li>2012-11-10 : v0.0.77a <br/>
 				&nbsp; (오전) xReader.v004.xml table uri 변경 (YQL의 미업데이트 때문)<br/>
 				&nbsp; (오전) callback 전역 > xReader 메서드로 변경<br/>

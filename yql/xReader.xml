@@ -33,7 +33,7 @@
                 <![CDATA[
 					var location, 
 						JSON,
-						version = "0.0.4",
+						version = "0.0.5",
 						method  = method || "get",
 						hdCase  = function(s) {return s.replace(/(^|\-)(\w)/g, function(a,b,c) { return b+c.toUpperCase()})};
 						isArray = function(o) {return Object.prototype.toString.call(o) == "[object Array]"}
@@ -104,11 +104,9 @@
 							if (location) {
 								data.resources +=
 									<redirect>
-										<url>{url}</url>
+										<from>{url}</from>
+										<to>{location}</to>
 										<status>{redir.@status}</status>
-										<headers>
-											<Location>{location}</Location>
-										</headers>
 									</redirect>;
 								url = location;
 							}
@@ -145,7 +143,7 @@
 					if (tidy && (typeof content != "xml")) content = y.tidy(content);
 					else if (!tidy && typeof content == "xml") content = content.toXMLString();
 					data.resources += <content>{content}</content>;
-					response.maxAge = 300;
+					//response.maxAge = 300;
 					response.object = data;
                 ]]>
             </execute>
