@@ -434,3 +434,10 @@ table td u {
 	font-weight: bold;
 }
 .lt {text-decoration:line-through}
+
+#info {
+	padding: 20px;
+	background: #fff;
+	border:1px solid #f0f0f0;
+	font-size:12px;
+}

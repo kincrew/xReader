@@ -6,8 +6,8 @@
 	<meta name="description" content="xReader KOREAN : Javscript Fucntion for accessing other resource wth YQL" />
 	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.ko.xreader.css">
 	<script src="javascripts/jquery.min.js" type="text/javascript"></script>
-	<script src="xReader.full.js" type="text/javascript"></script>
-	<script src="javascripts/xReader.demo.js" type="text/javascript"></script>
+	<script src="xReader.js" type="text/javascript"></script>
+	<script src="javascripts/xReader.demo.kor.js" type="text/javascript"></script>
 	<title>xReader [한국어 데모]</title>
 </head>
 <body>
@@ -24,21 +24,26 @@
 	  <div id="main_content" class="inner">
 		<h2>xReader 소개</h2>
 		<p>xReader는 <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>을 경유하여 자바스크립트로 제약없이 외부 컨텐츠를 불러오게 만들어진 함수입니다. </p>
-		<ul>
-			<li>버전 : v0.0.78a - 2012-11-13</li>
-			<li>라이선스 : <a href="http://ko.wikipedia.org/wiki/MIT_%ED%97%88%EA%B0%80%EC%84%9C" target="_blank">MIT 허가서</a></li>
-			<li>소스   <br/>
-				<a href="xReader.full.js" target="_blank">xReader.full.js</a> - option 지원의 일반 버전 <br/>
-				<a href="xReader.js" target="_blank">xReader.js</a> - option 미지원의 최소 버전 [지원 종료]<br/>
-				<a href="xReader.xml" target="_blank">xReader.xml</a> - YQL에서 사용하는 open data table</li>
-			<li>만든이<br/>
-				<a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (블로그)</a>, <br/>
-				<a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a>
-			</li>
-		</ul>
+		<div id="info">
+			<ul>
+				<li>버전 : v0.0.78a - 2012-11-13</li>
+				<li>라이선스 : <a href="http://ko.wikipedia.org/wiki/MIT_%ED%97%88%EA%B0%80%EC%84%9C" target="_blank">MIT 허가서</a></li>
+				<li>소스   <br/>
+					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - 일반 버전 <br/>
+					<a href="xReader.micro.js" target="_blank">xReader.micro.js</a> - 최소 버전 (option 미지원, 1040 byte)<br/>
+					<a href="xReader.xml" target="_blank">xReader.xml</a> - YQL 사용의 open data table</li>
+				<li>만든이<br/>
+					<a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (블로그)</a>, <br/>
+					<a href="mailto:oneiroi@outlook.com" target="_blank">oneiroi@outlook.com</a>
+				</li>
+				<li>문서<br/>
+					<a href="xReader.kor.html">xReader 영문 데모</a>
+				</li>
+			</ul>
+		</div>
 		<h5 style="font-style:italic;color:#FF0000;">제한 철폐!</h5>
 		<p><img src="images/baby.jpg" style="float:right;width:200px;margin-top:-15px;"/>
-			타 리소스를 접근 제약으로 지독히 고생중입니까? 최후의 만능 해결 방법이 바로 여기에 있습니다.
+			타 리소스를 접근 제약으로 인한 지독한 고생? 그에 대한 최후 해결책!
 		</p>
 		<ul class="strike">
 			<li>철폐! XHR의 동일출처정책! (Same-Origin policy) </li>
@@ -60,7 +65,7 @@
 			<span class="gr">&lt;/script></span>
 		</div>
 		<p> 
-			<a href="http://kincrew.github.com/xReader/xReader.full.js" target="_blank">xReader.full.js</a>만 다운받아 사용하시면 됩니다.
+			<a href="xReader.micro.js" target="_blank">xReader.micro.js</a>나 <a href="xReader.full.js" target="_blank">xReader.full.js</a>만 다운받아 사용하시면 됩니다.
 		</p>
 
 		<h5>xReader 특징</h5>
@@ -134,7 +139,7 @@
 		<tr><th>forceCharset</th><td>대상 소스의 charset 강제 지정</td><td>undefined | [string] </td></tr>
 		<tr><th>fallbackCharset</th><td>대상 소스의 charset 호환</td><td><u>"utf-8, euc-kr, iso-8859-1"</u> | [string]</td></tr>
 		<tr><th>headers</th><td>대상 http 요청시 사용 header </td><td>undefined | [object] </td></tr>
-		<tr><th>link</th><td>xReader와 YQL의 연결 방식 </td><td><u>"auto"</u> | "ajax" | "script"</td></tr>
+		<tr><th>link</th><td>xReader와 YQL의 연결 방식 </td><td><u>"auto"</u> | "ajax" | "jsonp"</td></tr>
 		<tr><th>method</th><td>YQL과 대상의 연결 방식 </td><td><u>"get"</u> | "post" | "head" | "put"</td></tr>
 		<tr><th>maxAge</th><td>임의 시간내 캐쉬 우선 사용 (단위, 초)</td><td>undefined | [number] </td></tr>
 		<tr><th>maxAgeGlobal</th><td>임의 시간내 캐쉬 우선 전역 사용 (단위, 초)</td><td>undefined | [number] | "reset" </td></tr>
@@ -159,7 +164,7 @@
 				동일 대상, 값의 변경시 해당 범위내에 자동으로 reset 됩니다. <br/>
 			</li>
 			<li>[tidy, css, xpath 사용시]<br/>
-				xml으로 잘 작성된 문서에서 적합하고, html 문서는 오류 가능성이 있어 사전 확인을 해야 합니다.<br/>
+				tidy는 오류가능성이 있기에 사전에 충분히 테스트 후 이용하시기 바랍니다.<br/>
 				css 및 xpath 옵션 사용시, 내부적으로 tidy 처리되기에 사정은 같습니다.
 			</li>
 			<li>[timeout]<br/>
@@ -176,6 +181,10 @@
 			})
 			<div id="exDemo2" class="exButton">실행하기</div>
 		</div>
+		<p class="fs rd">
+			[참고1] xReader.micro.js 버전도 위와 같은 CSS selector 사용 방법을 지원합니다. <br/>
+			[참고2] xpath를 이용한 트릭으로 text만 받아올 수 있습니다. "dl.mtype_head dt a" -> "dl.mtype_head dt a/text()"
+		</p>
 		<!--
 		<h5>JSON</h5>
 		<div class="exCode">
@@ -185,7 +194,7 @@
 			<div id="exDemo3" class="exButton">실행하기</div>
 		</div>
 		-->
-		<h5>JSONP / JSON</h5>
+		<h5>JSON / JSONP</h5>
 		<div class="exCode">
 			<span class="gr">/* flickr에서 고양이 출력 */</span><br/>
 			var <span class="pp">url</span> = <a href="http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json" target="_blank"><span class="rd">"http://api.flickr.com/services/feeds/photos_public.gne?"</span></a>;<br/>
@@ -205,8 +214,9 @@
 			<div id="exDemo4" class="exButton">실행하기</div>
 		</div>
 		<p class="fs rd">
-			[참고2] option의 target이 설정되고 callback 함수의 return 값이 있다면, return 값은 target 요소 내부로 바로 추가됩니다.<br />
-			[참고3] jsonp은 option.format을 json으로 사용하여야 하며 자동으로 변환 됩니다. </p>
+			[참고3] option.format을 json 설정시 객체로 변환되며, json과 jsonp의 구별없이 자동 인식됩니다. <br />
+			[참고4] option의 target이 설정되고 callback 함수의 return 값이 있다면, return 값은 target 요소 내부로 바로 추가됩니다.
+		</p>
 		<div id="exDemoResult4" class="exDemoResult"> 
 		</div>
 		<h5>RSS / XML</h5>
@@ -222,8 +232,8 @@
 		<h3>FAQ</h3> 
 		<ul>
 			<li>
-				xReader.js와 xReader.full.js의 차이는 option의 사용여부에 있습니다. <br/>
-				xReader.js는 컨텐츠만 불러오는데 유용한 간결하고 짧은 코드입니다.</li>
+				xReader.micro.js 와 xReader.full.js의 차이는 option의 사용여부에 있습니다. <br/>
+				xReader.micro.js 는 컨텐츠만 불러오는데 유용한 간결하고 짧은 코드입니다.</li>
 		</ul>
 		
 		<h3>기타</h3>
@@ -232,6 +242,11 @@
 		
 		<h3>HISTORY </h3>
 		<ul>
+			<li>2012-11-14 :  <br/>
+				&nbsp; [DCOUMENT] 영문 메인 <a href="./">index.html</a> 작성 완료 <br/>
+				&nbsp; [xReader.micro.js] 자동 cacheBurst 제거, 구별 table 사용, 내부 id 작동 제거 <br/>
+				&nbsp; [xReader.js] <a href="xReader.js" target="_blank">xReader.js</a> 삭제(예정) —› <a href="xReader.micro.js" target="_blank">xReader.micro.js</a>로 제공
+			</li>
 			<li>2012-11-13 : v0.0.78a <br/>
 				&nbsp; [xReader.demo.html] 문서 정리, update<br/>
 				&nbsp; [xReader.full.js] 콜백 함수 반환 인자 정리 및 단일화<br/>

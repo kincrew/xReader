@@ -122,7 +122,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 			AJAX = YQL.AJAX(r);
 			if (!AJAX) o.script = YQL.SCRIPT(r);
 		} 
-		else if (o.link == "script") SCRIPT = YQL.SCRIPT(r);
+		else if (o.link == "jsonp") SCRIPT = YQL.SCRIPT(r);
 		else  AJAX = YQL.AJAX(r);
 		r.phase = "loading";
 	}
@@ -173,21 +173,22 @@ OTHER DEALINGS IN THE SOFTWARE.
 		},
 		SCRIPT : function(r) {
 			r.YQL.link = "JSONP";
-			var html = '<html><head>'+
-				'<script tye="text/javascript">'+
-					'ex = parent.xReader["' + r.id + '"];' +
-					'onerror= function(){ex(' + s + ',{lang:"en-US", description : "[ERROR] YQL ParseError"});}' + 
-				'</script>' + '</head><body></body></html>';
 			var f = document.createElement('iframe');
-			f.style.cssText = "display:block";    f.setAttribute("src", "about:blank");
+			f.style.cssText = "display:block";
 			R.appendChild(f);
-			f.contentWindow.document.write(html); f.contentWindow.document.close();
+			f.contentWindow.document.write('<html><head></head><body></body></html>'); 
+			f.contentWindow.document.close();
+			f.contentWindow.x = r.excute;
+			f.contentWindow.onerror = function() {
+				r.excute(s, {lang : "en-US", description : "[ERROR] YQL-PARSE-ERROR"});
+				return true;
+			}
 			var s = f.contentWindow.document.createElement('script');
-			r.YQL.source += "&callback=ex";
+			r.YQL.source += "&callback=x";
 			s.setAttribute("charset", "utf-8");   s.setAttribute("type", "text/javascript");
 			s.setAttribute("src", r.YQL.source);
 			s.onerror = function() {
-			   r.excute(s, {lang:"en-US", description : "[ERROR] xReader can't connect YQL by script."});
+			   r.excute(s, {lang:"en-US", description : "[ERROR] CONNET-SCRIPT-ERROR"});
 			}
 			f.contentWindow.document.body.appendChild(s);
 			return f;

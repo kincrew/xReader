@@ -27,22 +27,26 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-(function(g,m,d,u,f,h,q,z){
-g.xReader = function(a,b,c,o) {
-	var t,i="_"+(new Date()).getTime()+m.floor(m.random()*100),e=d.getElementsByTagName('head')[0];
+(function(g,m,d,u,f,h,q,x,o,n,z){
+g[x] = function(a,b,c,i,w,s,t,e,r) {
+	e=g[d].getElementsByTagName('head')[0];
 	b=((typeof b=="function")&&((c&&(o=c)&&(c=b))||(c=b)))?z:b;
-	a='USE "'+h+'kincrew.github.com/xReader/yql/xReader.v004.xml" AS x; SELECT * FROM x WHERE url="'+a+q;
-	xReader[i]=function(r){
+	a='USE "'+h+'kincrew.github.com/xReader/xReader.xml?s='+d.domain+'" AS x; SELECT * FROM x WHERE url="'+a+q;
+	function i(r){
 		clearTimeout(t);
-		(r.error)?o?o(r.error):c(r):c(r.query.results&&r.query.results.resources);
-		e.removeChild(d.getElementById(i));
-		delete xReader[i];
+		(r.error)?c(r):c(r.query.results&&r.query.results.resources);
+		e.removeChild(w);
 	}
-	var s=d.createElement('script');
+	w = g[d][n]('iframe');
+	e.appendChild(w);
+	r = w[o][d];
+	r.write("<html><body></body></html>");
+	r.close();
+	w[o].e = i;
+	s = w[o][d][n]('script');
 	s[u]("charset","utf-8");
-	s[u]("id",i);
-	s[u]("src",h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent(b?a+' and css="'+b+q:a)+"&format=json&callback=xReader."+i);
-	e.appendChild(s);
-	t=setTimeout(function(){g[i]({err:{descrption:"timeout"}})}, g.xReader.timeout||10000)
+	s[u]("src",h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent(b?a+' and css="'+b+q:a)+"&format=json&callback=e");
+	r.body.appendChild(s);
+	t=setTimeout(function(){g[x][i]({error:{descrption:"timeout"}})}, g[x].timeout||10000);
 }
-})(this,Math,document,"setAttribute","callback=","http://",'"');
+})(window,Math,"document","setAttribute","callback=","http://",'"','xReader','contentWindow','createElement');
