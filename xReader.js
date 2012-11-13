@@ -30,7 +30,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 (function(g,m,d,u,f,h,q,x,o,n,z){
 g[x] = function(a,b,c,i,w,s,t,e,r) {
 	e=g[d].getElementsByTagName('head')[0];
-	b=((typeof b=="function")&&((c&&(o=c)&&(c=b))||(c=b)))?z:b;
+	b=(typeof b=="function")&&(c=b)?z:b;
 	a='USE "'+h+'kincrew.github.com/xReader/xReader.xml?s='+d.domain+'" AS x; SELECT * FROM x WHERE url="'+a+q;
 	function i(r){
 		clearTimeout(t);
