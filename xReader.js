@@ -45,7 +45,6 @@ g[x] = function(a,b,c,i,w,s,t,e,r,j,k) {
 	w[o].e = i;
 	s = r[n]('script');
 	s[u]("charset","utf-8");
-	console.log((b?a+' and css="'+b+q:a));
 	s[u]("src",h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent(b?a+' and css="'+b+q:a)+"&format=json&callback=e");
 	r.body.appendChild(s);
 	t=setTimeout(function(){i({error:{descrption:"timeout"}})}, g[x].timeout||10000);
