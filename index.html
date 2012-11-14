@@ -6,7 +6,7 @@
 	<meta name="description" content="xReader KOREAN : Javscript Fucntion for accessing other resource wth YQL" />
 	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.ko.xreader.css">
 	<script src="javascripts/jquery.min.js" type="text/javascript"></script>
-	<script src="xReader.js" type="text/javascript"></script>
+	<script src="xReader.micro.js" type="text/javascript"></script>
 	<script src="javascripts/xReader.demo.js" type="text/javascript"></script>
 	<title>xReader</title>
 </head>
@@ -30,7 +30,7 @@
 				<li><a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a></li>
 				<li>Source   <br/>
 					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - Full version (without option)<br/>
-					<a href="xReader.micro.js" target="_blank">xReader.micro.js</a> - Micro version (1011 byte)<br/>
+					<a href="xReader.micro.js" target="_blank">xReader.micro.js</a> - Micro version (1008 byte)<br/>
 					<a href="xReader.xml" target="_blank">xReader.xml</a> - Data table for YQL</li>
 				<li>Author<br/>
 					<a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (blog)</a>, <br/>
@@ -137,14 +137,15 @@
 
 		<h5>HTML / XML</h5>
 		<div class="exCode">
-			<span class="gr">/* main aritcles from New York Times*/</span><br/>
-			xReader(<span class="rd">"www.nytimes.com"</span>, <span class="rd">".aColumn.opening div.story > * a"</span>, function(<span class="pp">data</span>){ <br/>
+			<span class="gr">/* Headline from The Wall Street Journals*/</span><br/>
+			xReader(<span class="rd">"wsj.com"</span>, <span class="rd">"#main_content h2 a/text()"</span>, function(<span class="pp">data</span>){ <br/>
 			&nbsp; &nbsp; alert(<span class="pp">data.content</span>); <br/>
 			})
 			<div id="exDemo2" class="exButton">RUN</div>
 		</div>
 		<p class="fs rd">
-			[TIP] If you want get only text, add "/text()". => "aColumn.opening div.story > * a/text()"
+			[TIP] If you want get only text, add "/text()" <br/>
+			[INFO] auto redirection : wsj.com -> http://online.wsj.com/ -> http://online.wsj.com/home-page <br/>
 		</p>
 		<!--
 		<h5>JSON</h5>

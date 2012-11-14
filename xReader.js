@@ -28,13 +28,13 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 (function(g,m,d,u,f,h,q,x,o,n,z){
-g[x] = function(a,b,c,i,w,s,t,e,r) {
+g[x] = function(a,b,c,i,w,s,t,e,r,j,k) {
 	e=g[d].getElementsByTagName('head')[0];
 	b=(typeof b=="function")&&(c=b)?z:b;
-	a='USE "'+h+'kincrew.github.com/xReader/xReader.xml?s='+d.domain+'" AS x; SELECT * FROM x WHERE url="'+a+q;
+	a='USE "'+h+'kincrew.github.com/'+x+'/'+x+'.xml?s='+g[d].domain+'" AS x; SELECT * FROM x WHERE url="'+a+q;
 	function i(r){
 		clearTimeout(t);
-		(r.error)?c(r):c(r.query.results&&r.query.results.resources);
+		(r.error)?c(r):c((k=r.query)&&(j=k.results)&&j.resources);
 		e.removeChild(w);
 	}
 	w = g[d][n]('iframe');
@@ -45,8 +45,9 @@ g[x] = function(a,b,c,i,w,s,t,e,r) {
 	w[o].e = i;
 	s = r[n]('script');
 	s[u]("charset","utf-8");
+	console.log((b?a+' and css="'+b+q:a));
 	s[u]("src",h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent(b?a+' and css="'+b+q:a)+"&format=json&callback=e");
 	r.body.appendChild(s);
-	t=setTimeout(function(){g[x][i]({error:{descrption:"timeout"}})}, g[x].timeout||10000);
+	t=setTimeout(function(){i({error:{descrption:"timeout"}})}, g[x].timeout||10000);
 }
-})(window,Math,"document","setAttribute","callback=","http://",'"','xReader','contentWindow','createElement');
+})(window,Math,"document","setAttribute","callback=","http://",'"',"xReader","contentWindow","createElement");

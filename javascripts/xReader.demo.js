@@ -21,7 +21,7 @@ $(document).ready(function(){
 		}
 		elem.addClass('load');
 		elem.html("Loading...");
-		xReader("www.nytimes.com", ".aColumn.opening div.story > * a", function(data) {		
+		xReader("wsj.com", "#main_content h2 a/text()", function(data) {		
 			elem.removeClass('load');
 			elem.html("RUN");
 			alert(data.content); 
