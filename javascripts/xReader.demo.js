@@ -10,7 +10,8 @@ $(document).ready(function(){
 		xReader("http://www.yahoo.com/", function(data) {		
 			elem.removeClass('load');
 			elem.html("RUN");
-			alert(data.content); 
+			if (data.error) alert("ERROR! : " + data.error.description)
+			else alert(data.content); 
 		});
 	});
 	$("#exDemo2").click(function(){
@@ -24,7 +25,8 @@ $(document).ready(function(){
 		xReader("wsj.com", "#main_content h2 a/text()", function(data) {		
 			elem.removeClass('load');
 			elem.html("RUN");
-			alert(data.content); 
+			if (data.error) alert("ERROR! : " + data.error.description)
+			else alert(data.content); 
 		});
 	});
 	$("#exDemo4").click(function(){

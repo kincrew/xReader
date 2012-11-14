@@ -1,7 +1,6 @@
 /*
 xReader.js [SD05] 2012-11-14
-MIT License : Copyright (c) <2012> oneiroi@outlook.com
-http://kincrew.github.com/xReader/xReader.kor.html
-http://bootleg.egloos.com
+Copyright © 2012 oneiroi@outlook.com
+MIT License http://kincrew.github.com/xReader
 */
-(function(g,m,d,u,f,h,q,x,o,n,z){g[x]=function(a,b,c,i,w,s,t,e,r,j,k){e=g[d].getElementsByTagName('head')[0];b=(typeof b=="function")&&(c=b)?z:b;a='USE "'+h+'kincrew.github.com/'+x+'/'+x+'.xml?s='+g[d].domain+'" AS x; SELECT * FROM x WHERE url="'+a+q;function i(r){clearTimeout(t);(r.error)?c(r):c((k=r.query)&&(j=k.results)&&j.resources);e.removeChild(w);}w=g[d][n]('iframe');e.appendChild(w);r=w[o][d];r.write("<html><body></body></html>");r.close();w[o].e=i;s=r[n]('script');s[u]("charset","utf-8");s[u]("src",h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent(b?a+' and css="'+b+q:a)+"&format=json&callback=e");r.body.appendChild(s);t=setTimeout(function(){i({error:{descrption:"timeout"}})},g[x].timeout||10000);}})(this,Math,"document","setAttribute","callback=","http://",'"',"xReader","contentWindow","createElement");
+(function(g,m,d,h,q,x,o,n,v,A,z){g[x]=function(a,b,c,i,w,s,t,e,r){e=g[d].getElementsByTagName('head')[0];function i(r){clearTimeout(t);(c||b)(r.error?r:(a=r.query)&&(a=a.results)&&a.resources);e.removeChild(w)}w=g[d][n]('iframe');e[A](w);r=w[o][d];r.write("<html><body></body></html>");r.close();w[o].e=i;s=r[n]('script');s.charset="utf-8";s.src=h+"query.yahooapis.com/v1/public/yql?q="+encodeURIComponent('USE "'+h+'kincrew.github.com/'+x+'/'+x+'.xml?s='+g[d].domain+'" AS x;SELECT * FROM x WHERE url="'+a+'" and css="'+(c?b:"")+'"')+"&format=json&callback=e";t=setTimeout(function(){i({error:{description:v}})},g[x][v]||10000);r.body[A](s)}})(this,Math,"document","http://",'"',"xReader","contentWindow","createElement","timeout","appendChild")
