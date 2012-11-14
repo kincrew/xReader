@@ -39,7 +39,6 @@ g[x] = function(a,b,c,i,w,s,t,e,r) {
 	e[A](w);
 	r = w[o][d];
 	r.write("<html><body></body></html>");
-	r.close();
 	w[o].e = i;
 	s = r[n]('script');
 	s.charset="utf-8";
