@@ -1,0 +1,6 @@
+/*
+xReader.js [SD05] 2012-11-14
+2012 (C) oneiroi@outlook.com
+MIT License http://kincrew.github.com/xReader
+*/
+eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('1=4(b,c,d,e,f,g,h,i,j){i=2.u(\'v\')[0];4 e(a){r(h);(d||c)(a.p?a:(b=a.m.y)&&b.A);i.D(f)}f=i.5(2.6(\'11\'));j=f.7.2;j.t(\'<9><3></3></9>\');j.w();f.7.l=e;g=j.6(\'z\');g.12=\'B-8\';g.C=\'n://m.E.o/F/G/H?q=\'+I(\'J \\"n://K.L.o/1/1.M?s=\'+2.N+\'\\" O x;Q * R x S T=\\"\'+b+\'\\" U V=\\"\'+(d?c:\'\')+\'\\"\')+\'&W=X&Y=l\';h=Z(4(){e({p:{10:"k"}})},1.k||P);j.3.5(g)}',62,65,'|xReader|document|body|function|appendChild|createElement|contentWindow||html|||||||||||timeout|Com|query|http|com|error||clearTimeout||write|getElementsByTagName|head|close||results|script|resources|utf|src|removeChild|yahooapis|v1|public|yql|encodeURIComponent|USE|kincrew|github|xml|domain|AS|10000|SELECT|FROM|WHERE|url|and|css|format|json|callback|setTimeout|description|iframe|charset'.split('|'),0,{}))

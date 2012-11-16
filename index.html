@@ -6,9 +6,10 @@
 	<meta name="description" content="xReader KOREAN : Javscript Fucntion for accessing other resource wth YQL" />
 	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.ko.xreader.css">
 	<script src="javascripts/jquery.min.js" type="text/javascript"></script>
-	<script src="xReader.full.js" type="text/javascript"></script>
+	<script src="xReader.micro.js" type="text/javascript"></script>
 	<script src="javascripts/xReader.demo.js" type="text/javascript"></script>
 	<title>xReader</title>
+	<style>iframe{position:fixed;z-index:100;top:50px;width:200px;height:200px;border:3px solid #f00;}</style>
 </head>
 <body>
 	<!-- HEADER -->
@@ -22,7 +23,7 @@
 	<!-- MAIN CONTENT -->
 	<div id="main_content_wrap" class="outer">
 	  <div id="main_content" class="inner">
-		<h2>xReader</h2>
+		<h2>xReader 가나다라마바사</h2>
 		<p>xReader is a javascript function for accessing other resources without restrictions by <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>. </p>
 		<div id="info">
 			<ul>
@@ -30,7 +31,7 @@
 				<li><a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a></li>
 				<li>Source   <br/>
 					<a href="xReader.full.js" target="_blank">xReader.full.js</a> - Full version <br/>
-					<a href="xReader.micro.js" target="_blank">xReader.micro.js</a> - Micro version (without option, 834 byte)<br/>
+					<a href="xReader.micro.js" target="_blank">xReader.micro.js</a> - Micro version (without option, 771 byte)<br/>
 					<a href="xReader.xml" target="_blank">xReader.xml</a> - Data table for YQL</li>
 				<li>Author<br/>
 					<a href="http://bootleg.egloos.com/321865" target="_blank">SD05 (blog)</a>, <br/>
@@ -78,9 +79,9 @@
 		<div class="exCode">
 			xReader(<span class="rd">"URL"</span>, <span class="gr">"CSS"</span>, <span class="rd">callback</span>, <span class="gr"><i>option</i></span>)<br/>
 		</div>
-		<h5> • [string] URL </h5>
-		<h5> • [string] CSS - optional</h5>
-		<h5> • [function] callback(data)</h5>
+		<h5> - [string] URL </h5>
+		<h5> - [string] CSS - optional</h5>
+		<h5> - [function] callback(data)</h5>
 		<div style="margin-top:8px;padding:5px 15px;background:#fff;border:5px solid #ddd; font: 14px/18px 'courier new', monospace">
 			data = {<br/>
 			&nbsp; &nbsp; headers : [obeject],<br/>
@@ -103,7 +104,7 @@
 			&nbsp; &nbsp; maxAge &nbsp;: [number]  <br/>
 			}<br/>
 		</div>
-		<h5> • [object] option - optional</h5>
+		<h5> - [object] option - optional</h5>
 		<table>
 		<tr><th>OPTION</th><th>DESC</th><th>VALUE </th></tr>
 		<tr><th>cacheBurst</th><td>check this [<a href="http://www.yqlblog.net/blog/2010/03/12/avoiding-rate-limits-and-getting-banned-in-yql-and-pipes-caching-is-your-friend/" target="_blank">YQL BLOG</a>]</td><td><u>false</u> | true </td></tr>
@@ -132,6 +133,10 @@
 		<tr><th>ua</th><td>ua</td><td> <u>undefined</u> | "current" | [string] </td></tr>
 		<tr><th>xpath</th><td>xpath</td><td>undefined | [string] </td></tr>
 		</table>
+		
+		<ul>
+			<li>set timeout : xReader.timeout = 1000 </li>
+		</ul>
 
 		<h2>Simple Demo</h2>
 

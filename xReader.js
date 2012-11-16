@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-(function(g,m,d,x,o,n,v,A,z){
+(function(g,d,x,o,n,v,A,z){
 g[x] = function(a,b,c,i,w,s,t,e,r) {
 	e=g[d].getElementsByTagName('head')[0];
 	function i(r){
@@ -39,6 +39,7 @@ g[x] = function(a,b,c,i,w,s,t,e,r) {
 	e[A](w);
 	r = w[o][d];
 	r.write("<html><body></body></html>");
+	r.close();
 	w[o].e = i;
 	s = r[n]('script');
 	s.charset="utf-8";
@@ -46,4 +47,4 @@ g[x] = function(a,b,c,i,w,s,t,e,r) {
 	t=setTimeout(function(){i({error:{description:v}})}, g[x][v]||10000);
 	r.body[A](s)
 }
-})(this,Math,"document","xReader","contentWindow","createElement","timeout","appendChild");
+})(this,"document","xReader","contentWindow","createElement","timeout","appendChild");
